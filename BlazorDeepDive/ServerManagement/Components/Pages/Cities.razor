@@ -1,0 +1,16 @@
+﻿@page "/servers/city"
+
+<h3>City</h3>
+<br/>
+
+
+    @foreach(var city in cities)
+    {
+        <button type="button" class="btn btn-primary">@city.Name</button>
+        <text>&nbsp &nbsp</text>
+    }
+<br/>
+
+@code {
+    private List<City> cities = CitiesRepository.GetCities();
+}

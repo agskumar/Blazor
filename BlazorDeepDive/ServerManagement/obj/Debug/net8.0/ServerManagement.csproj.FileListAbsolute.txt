@@ -13,6 +13,7 @@ C:\Learnings\Blazor\BlazorDeepDive\ServerManagement\obj\Debug\net8.0\ServerManag
 C:\Learnings\Blazor\BlazorDeepDive\ServerManagement\obj\Debug\net8.0\ServerManagement.AssemblyInfo.cs
 C:\Learnings\Blazor\BlazorDeepDive\ServerManagement\obj\Debug\net8.0\ServerManagement.csproj.CoreCompileInputs.cache
 C:\Learnings\Blazor\BlazorDeepDive\ServerManagement\obj\Debug\net8.0\ServerManagement.MvcApplicationPartsAssemblyInfo.cache
+C:\Learnings\Blazor\BlazorDeepDive\ServerManagement\obj\Debug\net8.0\ServerManagement.sourcelink.json
 C:\Learnings\Blazor\BlazorDeepDive\ServerManagement\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Learnings\Blazor\BlazorDeepDive\ServerManagement\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Learnings\Blazor\BlazorDeepDive\ServerManagement\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json

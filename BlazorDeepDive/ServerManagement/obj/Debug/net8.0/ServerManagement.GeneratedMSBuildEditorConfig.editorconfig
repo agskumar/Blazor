@@ -28,12 +28,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xTZXJ2ZXJDb21wb25lbnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Controls/Welcome.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xXZWxjb21lLnJhem9y
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/Cities.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDaXRpZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/Component.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/EditServer.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFZGl0U2VydmVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/Error.razor]
