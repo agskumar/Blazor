@@ -1,0 +1,142 @@
+﻿@rendermode InteractiveServer
+@using ServerManagement.Models
+@using ServerManagement.Handlers
+@using Microsoft.FluentUI.AspNetCore.Components
+@inject IEnumerable<IActionHandler> Handlers
+
+<FluentCard Style="margin-bottom:1.5rem; padding:1rem; overflow:visible;">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem;">
+        <div style="display:flex; align-items:center; gap:1rem;">
+            <span style="font-weight:600;">Action @ActionNumber:</span>
+
+            <FluentSelect TOption="string"
+                          Value="@GetSelectedValue()"
+                          ValueChanged="@OnTypeChanged"
+                          Placeholder="Select an option"
+                          Style="width:220px;">
+                <FluentOption Value="">-- Select Option --</FluentOption>
+                @foreach (var type in ActionTypes.Where(t => t != ActionType.None))
+                {
+                    <FluentOption Value="@type.ToString()">@GetDisplayName(type)</FluentOption>
+                }
+            </FluentSelect>
+        </div>
+
+        <div style="display:flex; gap:0.5rem;">
+            <FluentButton BackgroundColor="#1976d2" OnClick="@(async () => await CopyAction.InvokeAsync(Action))">
+                <FluentIcon Icon="@(Icons.Regular.Size24.Copy)" Style="fill:white;" />
+            </FluentButton>
+            <FluentButton BackgroundColor="#1976d2" OnClick="@(async () => await DeleteAction.InvokeAsync())">
+                <FluentIcon Icon="@(Icons.Regular.Size24.Delete)" Style="fill:white;" />
+            </FluentButton>
+        </div>
+    </div>
+
+    <hr style="border:medium; color:dimgrey; margin:0.75rem 0;" />
+
+    <div style="min-height:120px; max-height:45vh; overflow-y:auto; padding-bottom:0.25rem; margin-top:0.5rem;">
+        @if (Action.Type == ActionType.LisOrder)
+        {
+            Console.WriteLine($"✓ ActionConfig {ActionNumber}: Rendering LisOrder");
+            if (Action is LisOrderActionModel lisModel)
+            {
+                <LisOrder Model="@lisModel" />
+            }
+            else
+            {
+                <p style="color:red;">❌ Type mismatch: Expected LisOrderActionModel</p>
+            }
+        }
+        else if (Action.Type == ActionType.InstrumentResult)
+        {
+            Console.WriteLine($"✓ ActionConfig {ActionNumber}: Rendering InstrumentResult");
+            if (Action is InstrumentResultActionModel instModel)
+            {
+                <InstrumentResult Model="@instModel" />
+            }
+            else
+            {
+                <p style="color:red;">❌ Type mismatch: Expected InstrumentResultActionModel</p>
+            }
+        }
+        else
+        {
+            <p style="color:gray; font-style:italic; text-align:center; padding:2rem 0;">
+                ℹ️ Select an action type to begin...
+            </p>
+        }
+    </div>
+</FluentCard>
+
+@code {
+    [Parameter]
+    public ActionModel Action { get; set; } = default!;
+
+    [Parameter]
+    public int ActionNumber { get; set; }
+
+    [Parameter]
+    public EventCallback<ActionModel> CopyAction { get; set; }
+
+    [Parameter]
+    public EventCallback DeleteAction { get; set; }
+
+    [Parameter]
+    public EventCallback<ActionModel> OnActionChanged { get; set; }
+
+    private readonly List<ActionType> ActionTypes = Enum.GetValues<ActionType>().ToList();
+
+    private string GetSelectedValue()
+    {
+        var value = Action.Type == ActionType.None ? "" : Action.Type.ToString();
+        Console.WriteLine($"  GetSelectedValue (Action {ActionNumber}): Type={Action.Type} → '{value}'");
+        return value;
+    }
+
+    private async Task OnTypeChanged(string value)
+    {
+        Console.WriteLine($"→ ActionConfig {ActionNumber}: OnTypeChanged triggered with value='{value}'");
+
+        if (string.IsNullOrEmpty(value))
+        {
+            Console.WriteLine($"  Empty value, ignoring");
+            return;
+        }
+
+        if (!Enum.TryParse<ActionType>(value, out var newType))
+        {
+            Console.WriteLine($"  ✗ Failed to parse: {value}");
+            return;
+        }
+
+        Console.WriteLine($"  → Parsed to: {newType}");
+
+        var handler = Handlers.FirstOrDefault(h => h.SupportedType == newType);
+        if (handler is null)
+        {
+            Console.WriteLine($"  ✗ No handler found for: {newType}");
+            return;
+        }
+
+        Console.WriteLine($"  → Handler found, creating model...");
+
+        var newAction = handler.CreateDefaultModel();
+        Console.WriteLine($"  ✓ New action created: {newAction.Type}");
+
+        // This callback goes back to parent's UpdateAction method
+        await OnActionChanged.InvokeAsync(newAction);
+
+        Console.WriteLine($"  ✓ OnActionChanged callback invoked");
+    }
+
+    private static string GetDisplayName(ActionType actionType)
+    {
+        var info = typeof(ActionType).GetMember(actionType.ToString());
+        if (info.Length == 0) return actionType.ToString();
+
+        var attr = info[0].GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), false);
+        return attr.Length > 0
+            ? ((System.ComponentModel.DataAnnotations.DisplayAttribute)attr[0]).Name ?? actionType.ToString()
+            : actionType.ToString();
+    }
+}

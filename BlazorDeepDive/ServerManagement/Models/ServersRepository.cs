@@ -4,11 +4,11 @@ public static class ServersRepository
 {
     private static List<Server> servers = new List<Server>()
         {
-            new Server {  Id = 1, Name = "Server 1", City = "Toronto" },
-            new Server {  Id = 2, Name = "Server 2", City = "Toronto" },
-            new Server {  Id = 3, Name = "Server 3", City = "Toronto" },
-            new Server {  Id = 4, Name = "Server 4", City = "Toronto" },
-            new Server {  Id = 5, Name = "Server 5", City = "Montreal" },
+            new Server {  Id = 1, Name = "Server 1", City = "Tokyo" },
+            new Server {  Id = 2, Name = "Server 2", City = "Mumbai" },
+            new Server {  Id = 3, Name = "Server 3", City = "Paris" },
+            new Server {  Id = 4, Name = "Server 4", City = "Sydney" },
+            new Server {  Id = 5, Name = "Server 5", City = "London" },
             new Server {  Id = 6, Name = "Server 6", City = "Montreal" },
             new Server {  Id = 7, Name = "Server 7", City = "Montreal" },
             new Server {  Id = 8, Name = "Server 8", City = "Ottawa" },
@@ -26,7 +26,7 @@ public static class ServersRepository
         servers.Add(server);
     }
 
-    public static List<Server> GetServres() => servers;
+    public static List<Server> GetServers() => servers;
 
     public static List<Server> GetServersByCity(string cityName)
     {

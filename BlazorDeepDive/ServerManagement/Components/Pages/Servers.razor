@@ -10,7 +10,7 @@
         {
             <div class="card" style="width: 8rem;">
                 <div class="ratio ratio-4x3">
-                    <img src="@($"/Images/{city.Name}.png")" class="card-img-top" alt="...">
+                    <img src="@($"/Images/{city.Name}.png")" class="card-img-top mt-2" alt="...">
                 </div>
                 <div class="card-body">
                     <button type="button" class="btn btn-primary">@city.Name</button>
@@ -18,27 +18,28 @@
             </div>
         }
     </div>
-
+    <br />
 </div>
 
 <br />
 <br />
     
 <ul>
-    @foreach(var server in servers)
+    @foreach(var server in servers.Take(5))
     {
         <li>
             @server.Name in @server.City is 
             <span style="color:@(server.IsOnline?"green":"red")">
                 @(server.IsOnline ? "online" : "offline")
             </span>
-            &nbsp
-            <a href="/servers/edit" class="btn btn-link">Edit</a>
+            <a href="/servers/@server.Id" class="btn" title="Edit">
+                <span class="bi bi-pencil"></span>
+            </a>
         </li>
     }
 </ul>
 
 @code {
-    private List<Server> servers = ServersRepository.GetServersByCity("Toronto");
+    private List<Server> servers = ServersRepository.GetServers();
     private List<City> cities = CitiesRepository.GetCities();
 }

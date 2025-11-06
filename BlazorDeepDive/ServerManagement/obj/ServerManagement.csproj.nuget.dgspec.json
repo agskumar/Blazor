@@ -49,6 +49,20 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "MatBlazor": {
+              "target": "Package",
+              "version": "[2.10.0, )"
+            },
+            "Microsoft.FluentUI.AspNetCore.Components": {
+              "target": "Package",
+              "version": "[4.13.1, )"
+            },
+            "Microsoft.FluentUI.AspNetCore.Components.Icons": {
+              "target": "Package",
+              "version": "[4.13.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

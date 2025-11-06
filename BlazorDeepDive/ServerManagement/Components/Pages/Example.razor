@@ -1,0 +1,59 @@
+﻿@page "/example"
+
+<h3>Example: Dynamic Field Rendering</h3>
+
+<div style="display:flex; flex-direction:column; gap:0.75rem; width:260px;">
+    <FluentSelect TOption="string" Style="width: 220px;"
+                  @bind-Value="Selected">
+        <FluentOption Value="LisOrder">LisOrder</FluentOption>
+        <FluentOption Value="InstrumentResult">InstrumentResult</FluentOption>
+    </FluentSelect>
+
+    @if (Selected == "LisOrder")
+    {
+        <div>
+            <label style="font-weight:600;">Name</label>
+            <InputText class="form-control" @bind-Value="name" placeholder="Enter name" />
+        </div>
+    }
+    else if (Selected == "InstrumentResult")
+    {
+        <div>
+            <label style="font-weight:600;">Age</label>
+            <InputNumber class="form-control" @bind-Value="age" placeholder="Enter age" />
+        </div>
+    }
+
+    <div style="margin-top:0.5rem; font-size:0.85rem; color:#555;">
+        Current selection: <strong>@Selected</strong><br />
+        Name: @(string.IsNullOrWhiteSpace(name) ? "<empty>" : name)<br />
+        Age: @(age?.ToString() ?? "<empty>")
+    </div>
+</div>
+
+@code {
+    private string selected = "LisOrder";
+    private string? name;
+    private int? age;
+
+    // Wrapper used for binding so we can run side-effects on change.
+    private string Selected
+    {
+        get => selected;
+        set
+        {
+            if (selected == value) return;
+            selected = value;
+
+            // Clear the irrelevant field
+            if (selected == "LisOrder")
+            {
+                age = null;
+            }
+            else if (selected == "InstrumentResult")
+            {
+                name = null;
+            }
+        }
+    }
+}

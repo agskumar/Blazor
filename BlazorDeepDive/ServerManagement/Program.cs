@@ -1,9 +1,20 @@
+using Microsoft.FluentUI.AspNetCore.Components;
 using ServerManagement.Components;
+using ServerManagement.Handlers;         
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services
+    .AddRazorComponents()
+    .AddInteractiveServerComponents();
+
 // Add services to the container.
-builder.Services.AddRazorComponents();
+//builder.Services.AddRazorComponents();
+builder.Services.AddFluentUIComponents();
+
+builder.Services.AddScoped<IActionHandler, LisOrderActionHandler>();
+builder.Services.AddScoped<IActionHandler, InstrumentResultActionHandler>();
 
 var app = builder.Build();
 
@@ -20,6 +31,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapRazorComponents<App>();
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
+
 
 app.Run();

@@ -49,3 +49,41 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+a.btn:hover .bi-pencil {
+    color: #006bb7; 
+}
+
+.action-card {
+    padding: 1rem;
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+.action-fields {
+    min-height: 120px;
+    max-height: 45vh; 
+    overflow-y: auto; 
+    padding-bottom: 0.25rem;
+}
+
+/*.action-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #fafafa;
+}
+
+.action-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.action-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+}*/

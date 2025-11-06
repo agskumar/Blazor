@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Services\" />
     <Folder Include="wwwroot\Images\" />
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MatBlazor" Version="2.10.0" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.13.1" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.13.1" />
   </ItemGroup>
 
 </Project>

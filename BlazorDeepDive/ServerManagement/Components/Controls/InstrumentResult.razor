@@ -1,0 +1,63 @@
+﻿@using ServerManagement.Models
+@using Microsoft.FluentUI.AspNetCore.Components
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 1rem 0;">
+    <div>
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Sample ID:</label>
+        <FluentSelect TOption="string" @bind-Value="Model.SampleId" Style="width: 100%;">
+            <FluentOption Value="">-- Select --</FluentOption>
+            <FluentOption Value="SIDCT1-{Param}">SIDCT1-{Param}</FluentOption>
+            <FluentOption Value="SIDCT2-{Param}">SIDCT2-{Param}</FluentOption>
+        </FluentSelect>
+    </div>
+
+    <div>
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Priority:</label>
+        <FluentTextField @bind-Value="Model.Priority" Placeholder="e.g. High" Style="width: 100%;" />
+    </div>
+
+    <div>
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Patient ID:</label>
+        <FluentTextField @bind-Value="Model.PatientId" Placeholder="e.g. P123" Style="width: 100%;" />
+    </div>
+
+    <div>
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Patient Last Name:</label>
+        <FluentTextField @bind-Value="Model.PatientLastName" Placeholder="e.g. Doe" Style="width: 100%;" />
+    </div>
+
+    <div>
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Patient First Name:</label>
+        <FluentTextField @bind-Value="Model.PatientFirstName" Placeholder="e.g. John" Style="width: 100%;" />
+    </div>
+
+    <div>
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Sex:</label>
+        <FluentSelect TOption="string" @bind-Value="Model.PatientSex" Style="width: 100%;">
+            <FluentOption Value="">-- Select --</FluentOption>
+            <FluentOption Value="Male">Male</FluentOption>
+            <FluentOption Value="Female">Female</FluentOption>
+            <FluentOption Value="Other">Other</FluentOption>
+        </FluentSelect>
+    </div>
+
+    <div>
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Patient Birthdate:</label>
+        <FluentTextField @bind-Value="Model.PatientBirthdate" Placeholder="e.g. 1990-01-01" Type="date" Style="width: 100%;" />
+    </div>
+
+    <div>
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Rack:</label>
+        <FluentTextField @bind-Value="Model.Rack" Placeholder="e.g. Rack-A" Style="width: 100%;" />
+    </div>
+
+    <div>
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Position:</label>
+        <FluentTextField @bind-Value="Model.Position" Placeholder="e.g. Position-1" Style="width: 100%;" />
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public InstrumentResultActionModel Model { get; set; } = default!;
+}

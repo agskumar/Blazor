@@ -3,48 +3,76 @@
   "WorkspaceRootPath": "C:\\Learnings\\Blazor\\BlazorDeepDive\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\pages\\servers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\pages\\servers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\controls\\actionconfig.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\controls\\actionconfig.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\pages\\editserver.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\pages\\editserver.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\pages\\actionmanager.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\pages\\actionmanager.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\pages\\cities.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\pages\\cities.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\pages\\example.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\pages\\example.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\models\\server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\models\\server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\models\\citiesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\models\\citiesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\models\\serversrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\models\\serversrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\controls\\servercomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\controls\\servercomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\controls\\instrumentresult.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\controls\\instrumentresult.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\controls\\lisorder.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\controls\\lisorder.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\handlers\\lisorderactionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\handlers\\lisorderactionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\models\\actionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\models\\actionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\handlers\\instrumentresultactionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\handlers\\instrumentresultactionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\handlers\\iactionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\handlers\\iactionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\models\\actionfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\models\\actionfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\models\\actiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\models\\actiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\models\\actionregistry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\models\\actionregistry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\pages\\actionmanager.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\pages\\actionmanager.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|c:\\learnings\\blazor\\blazordeepdive\\servermanagement\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F63775EC-1D1D-4CD2-B5D0-14B1F1E81DF8}|ServerManagement\\ServerManagement.csproj|solutionrelative:servermanagement\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,113 +86,127 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "App.razor",
-              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\App.razor",
-              "RelativeDocumentMoniker": "ServerManagement\\Components\\App.razor",
-              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\App.razor",
-              "RelativeToolTip": "ServerManagement\\Components\\App.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-14T09:43:30.272Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Routes.razor",
-              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Routes.razor",
-              "RelativeDocumentMoniker": "ServerManagement\\Components\\Routes.razor",
-              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Routes.razor",
-              "RelativeToolTip": "ServerManagement\\Components\\Routes.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-14T09:43:30.977Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 5,
               "Title": "_Imports.razor",
               "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\_Imports.razor",
               "RelativeDocumentMoniker": "ServerManagement\\Components\\_Imports.razor",
               "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\_Imports.razor",
               "RelativeToolTip": "ServerManagement\\Components\\_Imports.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-14T09:43:31.821Z",
+              "WhenOpened": "2025-11-05T04:59:45.23Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ServerComponent.razor",
-              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Controls\\ServerComponent.razor",
-              "RelativeDocumentMoniker": "ServerManagement\\Components\\Controls\\ServerComponent.razor",
-              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Controls\\ServerComponent.razor",
-              "RelativeToolTip": "ServerManagement\\Components\\Controls\\ServerComponent.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAWAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "App.razor",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\App.razor",
+              "RelativeDocumentMoniker": "ServerManagement\\Components\\App.razor",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\App.razor",
+              "RelativeToolTip": "ServerManagement\\Components\\App.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-14T09:43:25.008Z",
+              "WhenOpened": "2025-11-05T04:51:58.542Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Servers.razor",
-              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\Servers.razor",
-              "RelativeDocumentMoniker": "ServerManagement\\Components\\Pages\\Servers.razor",
-              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\Servers.razor",
-              "RelativeToolTip": "ServerManagement\\Components\\Pages\\Servers.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-14T09:43:22.397Z",
+              "DocumentIndex": 16,
+              "Title": "app.css",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\wwwroot\\app.css",
+              "RelativeDocumentMoniker": "ServerManagement\\wwwroot\\app.css",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\wwwroot\\app.css",
+              "RelativeToolTip": "ServerManagement\\wwwroot\\app.css",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAqwFEAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-11-05T05:17:20.646Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "EditServer.razor",
-              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\EditServer.razor",
-              "RelativeDocumentMoniker": "ServerManagement\\Components\\Pages\\EditServer.razor",
-              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\EditServer.razor",
-              "RelativeToolTip": "ServerManagement\\Components\\Pages\\EditServer.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAATAAAAAAAAAA==",
+              "Title": "ActionManager.razor",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\ActionManager.razor",
+              "RelativeDocumentMoniker": "ServerManagement\\Components\\Pages\\ActionManager.razor",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\ActionManager.razor",
+              "RelativeToolTip": "ServerManagement\\Components\\Pages\\ActionManager.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-29T04:58:33.724Z",
+              "WhenOpened": "2025-11-05T04:52:08.945Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Cities.razor",
-              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\Cities.razor",
-              "RelativeDocumentMoniker": "ServerManagement\\Components\\Pages\\Cities.razor",
-              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\Cities.razor",
-              "RelativeToolTip": "ServerManagement\\Components\\Pages\\Cities.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ActionConfig.razor",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Controls\\ActionConfig.razor",
+              "RelativeDocumentMoniker": "ServerManagement\\Components\\Controls\\ActionConfig.razor",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Controls\\ActionConfig.razor",
+              "RelativeToolTip": "ServerManagement\\Components\\Controls\\ActionConfig.razor",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAswH8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-28T06:29:37.97Z",
+              "WhenOpened": "2025-11-05T11:31:03.346Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Layout\\NavMenu.razor",
-              "RelativeDocumentMoniker": "ServerManagement\\Components\\Layout\\NavMenu.razor",
-              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Layout\\NavMenu.razor",
-              "RelativeToolTip": "ServerManagement\\Components\\Layout\\NavMenu.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAA1AAAAAAAAAA==",
+              "DocumentIndex": 13,
+              "Title": "ActionType.cs",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\ActionType.cs",
+              "RelativeDocumentMoniker": "ServerManagement\\Models\\ActionType.cs",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\ActionType.cs",
+              "RelativeToolTip": "ServerManagement\\Models\\ActionType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T05:00:50.574Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ActionModel.cs",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\ActionModel.cs",
+              "RelativeDocumentMoniker": "ServerManagement\\Models\\ActionModel.cs",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\ActionModel.cs",
+              "RelativeToolTip": "ServerManagement\\Models\\ActionModel.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAcwEUAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T05:00:49.48Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "InstrumentResult.razor",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Controls\\InstrumentResult.razor",
+              "RelativeDocumentMoniker": "ServerManagement\\Components\\Controls\\InstrumentResult.razor",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Controls\\InstrumentResult.razor",
+              "RelativeToolTip": "ServerManagement\\Components\\Controls\\InstrumentResult.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-29T05:12:04.795Z",
+              "WhenOpened": "2025-11-05T11:33:10.915Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LisOrder.razor",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Controls\\LisOrder.razor",
+              "RelativeDocumentMoniker": "ServerManagement\\Components\\Controls\\LisOrder.razor",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Controls\\LisOrder.razor",
+              "RelativeToolTip": "ServerManagement\\Components\\Controls\\LisOrder.razor",
+              "ViewState": "AgIAAAkAAAAAAAAAAADwvyAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-05T11:32:54.026Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
@@ -186,41 +228,119 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Server.cs",
-              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\Server.cs",
-              "RelativeDocumentMoniker": "ServerManagement\\Models\\Server.cs",
-              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\Server.cs",
-              "RelativeToolTip": "ServerManagement\\Models\\Server.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAApAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Program.cs",
+              "RelativeDocumentMoniker": "ServerManagement\\Program.cs",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Program.cs",
+              "RelativeToolTip": "ServerManagement\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T13:14:15.71Z",
+              "WhenOpened": "2025-11-05T11:49:16.588Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CitiesRepository.cs",
-              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\CitiesRepository.cs",
-              "RelativeDocumentMoniker": "ServerManagement\\Models\\CitiesRepository.cs",
-              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\CitiesRepository.cs",
-              "RelativeToolTip": "ServerManagement\\Models\\CitiesRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBAAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T10:25:02.651Z",
+              "DocumentIndex": 3,
+              "Title": "Example.razor",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\Example.razor",
+              "RelativeDocumentMoniker": "ServerManagement\\Components\\Pages\\Example.razor",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\Example.razor",
+              "RelativeToolTip": "ServerManagement\\Components\\Pages\\Example.razor",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAACsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-05T08:44:15.078Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ServersRepository.cs",
-              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\ServersRepository.cs",
-              "RelativeDocumentMoniker": "ServerManagement\\Models\\ServersRepository.cs",
-              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\ServersRepository.cs",
-              "RelativeToolTip": "ServerManagement\\Models\\ServersRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAmAAAAAAAAAA==",
+              "DocumentIndex": 12,
+              "Title": "ActionFactory.cs",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\ActionFactory.cs",
+              "RelativeDocumentMoniker": "ServerManagement\\Models\\ActionFactory.cs",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\ActionFactory.cs",
+              "RelativeToolTip": "ServerManagement\\Models\\ActionFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T07:04:26.155Z",
+              "WhenOpened": "2025-11-05T11:00:49.883Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IActionHandler.cs",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Handlers\\IActionHandler.cs",
+              "RelativeDocumentMoniker": "ServerManagement\\Handlers\\IActionHandler.cs",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Handlers\\IActionHandler.cs",
+              "RelativeToolTip": "ServerManagement\\Handlers\\IActionHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T11:27:40.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "InstrumentResultActionHandler.cs",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Handlers\\InstrumentResultActionHandler.cs",
+              "RelativeDocumentMoniker": "ServerManagement\\Handlers\\InstrumentResultActionHandler.cs",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Handlers\\InstrumentResultActionHandler.cs",
+              "RelativeToolTip": "ServerManagement\\Handlers\\InstrumentResultActionHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T11:28:19.105Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ActionRegistry.cs",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\ActionRegistry.cs",
+              "RelativeDocumentMoniker": "ServerManagement\\Models\\ActionRegistry.cs",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Models\\ActionRegistry.cs",
+              "RelativeToolTip": "ServerManagement\\Models\\ActionRegistry.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAIwBMAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T11:11:59.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LisOrderActionHandler.cs",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Handlers\\LisOrderActionHandler.cs",
+              "RelativeDocumentMoniker": "ServerManagement\\Handlers\\LisOrderActionHandler.cs",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Handlers\\LisOrderActionHandler.cs",
+              "RelativeToolTip": "ServerManagement\\Handlers\\LisOrderActionHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T11:28:01.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ActionManager.razor.cs",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\ActionManager.razor.cs",
+              "RelativeDocumentMoniker": "ServerManagement\\Components\\Pages\\ActionManager.razor.cs",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Pages\\ActionManager.razor.cs",
+              "RelativeToolTip": "ServerManagement\\Components\\Pages\\ActionManager.razor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T06:10:28.023Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "ServerManagement\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Learnings\\Blazor\\BlazorDeepDive\\ServerManagement\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "ServerManagement\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-05T04:52:00.617Z",
               "EditorCaption": ""
             }
           ]

@@ -24,6 +24,18 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Controls/ActionConfig.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xBY3Rpb25Db25maWcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Controls/InstrumentResult.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xJbnN0cnVtZW50UmVzdWx0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Controls/LisOrder.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xMaXNPcmRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Controls/ServerComponent.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xTZXJ2ZXJDb21wb25lbnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -32,16 +44,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDaXRpZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/Component.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb21wb25lbnQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/EditServer.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFZGl0U2VydmVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/Example.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFeGFtcGxlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/Home.razor]
@@ -71,3 +83,7 @@ build_metadata.AdditionalFiles.CssScope = b-qeotobl5bn
 [C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-hjp2f7ptt1
+
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/ActionManager.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY3Rpb25NYW5hZ2VyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-q5mwsc7gct
