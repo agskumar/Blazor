@@ -2,8 +2,10 @@
 @rendermode InteractiveServer
 @using ServerManagement.Models
 @using ServerManagement.Components.Controls
+@using Microsoft.FluentUI.AspNetCore.Components
+@inject IToastService ToastService
 
-<h3>Demo Application</h3>
+<h3></h3>
 
 <div style="display:flex; justify-content:flex-end; margin-bottom:1rem;">
     <FluentButton Style="width:56px;" BackgroundColor="#1976d2" OnClick="@AddAction">
@@ -11,21 +13,20 @@
     </FluentButton>
 </div>
 
-@if (Actions != null && Actions.Count > 0)
+@if (Actions.Count > 0)
 {
     @for (int i = 0; i < Actions.Count; i++)
     {
         var action = Actions[i];
         var index = i;
 
-        Console.WriteLine($"→ Rendering ActionConfig {index}: Type={action.Type}");
-
-        <ActionConfig @key="@action"
+        <ActionConfig @ref="actionConfigRefs[index]"
+                      @key="@action"
                       Action="@action"
                       ActionNumber="@(index + 1)"
-                      DeleteAction="@(async () => DeleteAction(index))"
-                      OnActionChanged="@(async (newAction) => UpdateAction(index, newAction))"
-                      CopyAction="@(async (actionToCopy) => CopyActionAsync(actionToCopy))" />
+                      DeleteAction="() => DeleteAction(index)"
+                      OnActionChanged="(newAction) => UpdateAction(index, newAction)"
+                      CopyAction="CopyActionAsync" />
     }
 }
 else
@@ -33,17 +34,18 @@ else
     <p>No actions yet. Click the + button to add one.</p>
 }
 
-<div style="display:flex; justify-content:space-between; margin-top:2rem;">
+
+<div style="display:flex; justify-content:space-between; margin-top:2rem; margin-bottom:2rem;">
     <FluentButton Style="color:white;" BackgroundColor="#1976d2" OnClick="@Cancel">Cancel</FluentButton>
     <FluentButton Style="color:white;" BackgroundColor="#1976d2" OnClick="@Apply">Apply</FluentButton>
 </div>
 
 @code {
-    private List<ActionModel> Actions = new();
+    private readonly List<ActionModel> Actions = new();
+    private readonly Dictionary<int, ActionConfig> actionConfigRefs = new();
 
     protected override void OnInitialized()
     {
-        Console.WriteLine("✓ ActionManager Initialized");
         if (Actions.Count == 0)
         {
             AddAction();
@@ -52,69 +54,89 @@ else
 
     private void AddAction()
     {
-        Console.WriteLine("→ AddAction: Creating new EmptyAction");
-        var emptyAction = new EmptyAction();
-        Actions.Add(emptyAction);
-        Console.WriteLine($"✓ AddAction: Action added. Total count: {Actions.Count}");
+        Actions.Add(new EmptyAction());
+        actionConfigRefs[Actions.Count - 1] = null!;
         StateHasChanged();
-        Console.WriteLine("✓ AddAction: StateHasChanged triggered");
     }
 
     private void DeleteAction(int index)
     {
-        Console.WriteLine($"→ DeleteAction: index {index}");
         if (index >= 0 && index < Actions.Count)
         {
             Actions.RemoveAt(index);
+            actionConfigRefs.Remove(index);
+            
+            // Re-index the dictionary
+            var newDict = new Dictionary<int, ActionConfig>();
+            for (int i = 0; i < Actions.Count; i++)
+            {
+                if (actionConfigRefs.ContainsKey(i < index ? i : i + 1))
+                {
+                    newDict[i] = actionConfigRefs[i < index ? i : i + 1];
+                }
+            }
+            actionConfigRefs.Clear();
+            foreach (var kvp in newDict)
+            {
+                actionConfigRefs[kvp.Key] = kvp.Value;
+            }
+            
             StateHasChanged();
-            Console.WriteLine($"✓ DeleteAction: Removed. Count: {Actions.Count}");
         }
     }
 
     private void UpdateAction(int index, ActionModel newAction)
     {
-        Console.WriteLine($"→ UpdateAction: index={index}, oldType={Actions[index].Type}, newType={newAction.Type}");
-
         if (index >= 0 && index < Actions.Count)
         {
-            // IMPORTANT: Replace the reference entirely
             Actions[index] = newAction;
-
-            Console.WriteLine($"✓ UpdateAction: List updated at index {index}");
-            Console.WriteLine($"  Current Actions[{index}].Type = {Actions[index].Type}");
-
-            // Force re-render
             StateHasChanged();
-
-            Console.WriteLine($"✓ StateHasChanged triggered");
-        }
-        else
-        {
-            Console.WriteLine($"✗ UpdateAction: Invalid index {index}");
         }
     }
 
-    private async Task CopyActionAsync(ActionModel actionToCopy)
+    private async Task CopyActionAsync(ActionModel action)
     {
-        Console.WriteLine($"→ CopyActionAsync: Copying type {actionToCopy.Type}");
-        var clonedAction = actionToCopy.Clone();
+        var clonedAction = action.Clone();
         Actions.Add(clonedAction);
+        actionConfigRefs[Actions.Count - 1] = null!;
         StateHasChanged();
-        Console.WriteLine($"✓ CopyActionAsync: Cloned and added. Count: {Actions.Count}");
         await Task.CompletedTask;
     }
 
     private void Cancel()
     {
-        Console.WriteLine("→ Cancel clicked");
+        // Clear all actions and reset
+        Actions.Clear();
+        actionConfigRefs.Clear();
+        AddAction();
+        StateHasChanged();
     }
 
     private void Apply()
     {
-        Console.WriteLine("→ Apply clicked");
-        foreach (var (action, idx) in Actions.Select((a, i) => (a, i)))
+        bool allValid = true;
+
+        // Validate all actions
+        foreach (var kvp in actionConfigRefs)
         {
-            Console.WriteLine($"  Action {idx}: Type={action.Type}");
+            if (kvp.Value != null)
+            {
+                bool isValid = kvp.Value.ValidateAction();
+                if (!isValid)
+                {
+                    allValid = false;
+                }
+            }
+        }
+
+        if (allValid)
+        {
+            ToastService.ShowSuccess("All actions are valid!");
+            // Here you can add logic to save or process the actions
+        }
+        else
+        {
+            ToastService.ShowError("Please fix validation errors before applying.");
         }
     }
 }

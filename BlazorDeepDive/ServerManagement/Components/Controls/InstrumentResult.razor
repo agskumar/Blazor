@@ -1,63 +1,442 @@
 ﻿@using ServerManagement.Models
 @using Microsoft.FluentUI.AspNetCore.Components
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 1rem 0;">
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Sample ID:</label>
-        <FluentSelect TOption="string" @bind-Value="Model.SampleId" Style="width: 100%;">
-            <FluentOption Value="">-- Select --</FluentOption>
-            <FluentOption Value="SIDCT1-{Param}">SIDCT1-{Param}</FluentOption>
-            <FluentOption Value="SIDCT2-{Param}">SIDCT2-{Param}</FluentOption>
-        </FluentSelect>
+<style>
+    .instrument-section {
+        margin-bottom: 2rem;
+    }
+
+    .instrument-section-title {
+        font-size: 0.9rem;
+        font-weight: 550;
+        margin-bottom: 1rem;
+        color: black;
+        border-bottom: 2px solid #1976d2;
+        padding-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .instrument-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem 2rem;
+        padding: 0.5rem 0.25rem;
+    }
+
+    .instrument-row {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .instrument-label {
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .instrument-control {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .instrument-row-full {
+        grid-column: 1 / -1;
+    }
+
+    .instrument-radio-group {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        padding: 0.5rem 0;
+    }
+
+    .rack-position-container {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+        .rack-position-container > * {
+            flex: 1;
+        }
+
+        .rack-position-container .separator {
+            flex: 0 0 auto;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+    .add-patient-btn {
+        width: 100% !important;
+        min-height: 32px !important;
+        height: auto !important;
+        border: 1px solid #1976d2 !important;
+    }
+
+    .comment-row, .result-row {
+        display: flex;
+        gap: 0.5rem;
+        align-items: flex-start;
+        margin-bottom: 0.75rem;
+    }
+
+    .comment-type {
+        flex: 0 0 150px;
+    }
+
+    .comment-text {
+        flex: 1;
+    }
+
+    .delete-btn {
+        flex: 0 0 auto;
+    }
+
+    .result-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 2fr auto;
+        gap: 0.5rem;
+        align-items: start;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+    }
+
+    .result-comments-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .validation-message {
+        color: #d32f2f;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+    }
+
+    /* Remove all validation styling borders */
+    .instrument-control.valid,
+    .instrument-control .valid,
+    .fluent-autocomplete.valid,
+    .fluent-text-field.valid,
+    .fluent-select.valid,
+    .valid,
+    input.valid,
+    select.valid,
+    textarea.valid,
+    .modified.valid,
+    .form-control.valid {
+        border-color: inherit !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    fluent-text-field.valid,
+    fluent-select.valid,
+    fluent-text-area.valid,
+    fluent-autocomplete.valid {
+        --neutral-stroke-rest: inherit !important;
+        --neutral-stroke-hover: inherit !important;
+        --neutral-stroke-focus: inherit !important;
+    }
+
+    @@media (max-width: 768px) {
+        .instrument-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .result-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<EditForm Model="@Model" @ref="editForm">
+    <DataAnnotationsValidator />
+
+    <!-- Section 1: Sample -->
+    <div class="instrument-section">
+        <h4 class="instrument-section-title">Sample</h4>
+        <div class="instrument-grid">
+            <!-- Source Analyzer -->
+            <div class="instrument-row">
+                <label class="instrument-label">Source Analyzer <span style="color: red;">*</span></label>
+                <FluentSelect TOption="string"
+                              @bind-Value="Model.SourceAnalyzer"
+                              Placeholder="-- Select Analyzer --"
+                              class="instrument-control">
+                    <FluentOption Value="Analyzer1">Analyzer 1</FluentOption>
+                    <FluentOption Value="Analyzer2">Analyzer 2</FluentOption>
+                    <FluentOption Value="Analyzer3">Analyzer 3</FluentOption>
+                </FluentSelect>
+                <ValidationMessage For="@(() => Model.SourceAnalyzer)" />
+            </div>
+
+            <!-- Sample ID -->
+            <div class="instrument-row">
+                <label class="instrument-label">Sample ID <span style="color: red;">*</span></label>
+                <FluentTextField @bind-Value="Model.SampleId"
+                                 Placeholder="Enter Sample ID"
+                                 class="instrument-control" />
+                <ValidationMessage For="@(() => Model.SampleId)" />
+            </div>
+
+            <!-- Priority -->
+            <div class="instrument-row">
+                <label class="instrument-label">Priority</label>
+                <FluentRadioGroup @bind-Value="Model.Priority" class="instrument-control">
+                    <div class="instrument-radio-group">
+                        <FluentRadio Value="@("Stat")">Stat</FluentRadio>
+                        <FluentRadio Value="@("Routine")">Routine</FluentRadio>
+                    </div>
+                </FluentRadioGroup>
+            </div>
+
+            <!-- Rack / Position -->
+            <div class="instrument-row">
+                <label class="instrument-label">Rack / Position</label>
+                <div class="rack-position-container">
+                    <FluentTextField @bind-Value="Model.Rack"
+                                     Placeholder="Rack"
+                                     class="instrument-control" />
+                    <span class="separator">/</span>
+                    <FluentTextField @bind-Value="Model.Position"
+                                     Placeholder="Position"
+                                     class="instrument-control" />
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Priority:</label>
-        <FluentTextField @bind-Value="Model.Priority" Placeholder="e.g. High" Style="width: 100%;" />
+    <!-- Section 2: Patient -->
+    <div class="instrument-section">
+        @if (!Model.ShowPatient)
+        {
+            <FluentStack Style="width:100%;" Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.Left">
+                <FluentButton IconStart="@(new Icons.Regular.Size20.Add())"
+                              class="add-patient-btn"
+                              Appearance="Appearance.Neutral"
+                              OnClick="@(() => Model.ShowPatient = true)">
+                    Add Patient
+                </FluentButton>
+            </FluentStack>
+        }
+        else
+        {
+            <h4 class="instrument-section-title">Patient</h4>
+            <div class="instrument-grid">
+                <!-- Patient ID -->
+                <div class="instrument-row">
+                    <label class="instrument-label">Patient ID</label>
+                    <FluentTextField @bind-Value="Model.PatientId"
+                                     Placeholder="Enter Patient ID"
+                                     class="instrument-control" />
+                </div>
+
+                <!-- Patient Last Name -->
+                <div class="instrument-row">
+                    <label class="instrument-label">Patient Last Name</label>
+                    <FluentTextField @bind-Value="Model.PatientLastName"
+                                     Placeholder="Enter Last Name"
+                                     class="instrument-control" />
+                </div>
+
+                <!-- Patient First Name -->
+                <div class="instrument-row">
+                    <label class="instrument-label">Patient First Name</label>
+                    <FluentTextField @bind-Value="Model.PatientFirstName"
+                                     Placeholder="Enter First Name"
+                                     class="instrument-control" />
+                </div>
+
+                <!-- Patient Sex -->
+                <div class="instrument-row">
+                    <label class="instrument-label">Patient Sex</label>
+                    <FluentRadioGroup @bind-Value="Model.PatientSex" class="instrument-control">
+                        <div class="instrument-radio-group">
+                            <FluentRadio Value="@("Male")">Male</FluentRadio>
+                            <FluentRadio Value="@("Female")">Female</FluentRadio>
+                            <FluentRadio Value="@("Unknown")">Unknown</FluentRadio>
+                        </div>
+                    </FluentRadioGroup>
+                </div>
+
+                <!-- Patient Birthdate -->
+                <div class="instrument-row">
+                    <label class="instrument-label">Patient Birthdate</label>
+                    <FluentDatePicker @bind-Value="Model.PatientBirthdate"
+                                      Placeholder="DD/MM/YYYY"
+                                      class="instrument-control" />
+                </div>
+            </div>
+        }
     </div>
 
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Patient ID:</label>
-        <FluentTextField @bind-Value="Model.PatientId" Placeholder="e.g. P123" Style="width: 100%;" />
+    <!-- Section 3: Run Comments -->
+    <div class="instrument-section">
+        <h4 class="instrument-section-title">Run Comments</h4>
+
+        @foreach (var comment in Model.RunComments)
+        {
+            var currentComment = comment;
+            <div class="comment-row">
+                <FluentSelect TOption="string"
+                              @bind-Value="currentComment.CommentType"
+                              class="comment-type">
+                    <FluentOption Value="Technical">Technical</FluentOption>
+                    <FluentOption Value="Clinical">Clinical</FluentOption>
+                    <FluentOption Value="Others">Others</FluentOption>
+                </FluentSelect>
+                <FluentTextField @bind-Value="currentComment.CommentText"
+                                 Placeholder="Enter comment"
+                                 class="comment-text" />
+                <FluentButton BackgroundColor="#1976d2"
+                              OnClick="@(() => RemoveRunComment(currentComment))"
+                              class="delete-btn">
+                    <FluentIcon Icon="@(Icons.Regular.Size20.CommentDismiss)" Style="fill:white;" />
+                </FluentButton>
+            </div>
+        }
+
+        <FluentButton Appearance="Appearance.Outline"
+                      OnClick="@AddRunComment"
+                      Style="margin-top: 0.5rem;">
+            <FluentIcon Icon="@(Icons.Regular.Size20.Comment)" Slot="start" />
+            Add Comment
+        </FluentButton>
     </div>
 
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Patient Last Name:</label>
-        <FluentTextField @bind-Value="Model.PatientLastName" Placeholder="e.g. Doe" Style="width: 100%;" />
-    </div>
+    <!-- Section 4: Results -->
+    <div class="instrument-section">
+        <h4 class="instrument-section-title">Results</h4>
 
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Patient First Name:</label>
-        <FluentTextField @bind-Value="Model.PatientFirstName" Placeholder="e.g. John" Style="width: 100%;" />
-    </div>
+        @foreach (var result in Model.Results)
+        {
+            var currentResult = result;
+            <div class="result-grid">
+                <!-- Parameter Code -->
+                <div>
+                    <label class="instrument-label">Code</label>
+                    <FluentTextField @bind-Value="currentResult.ParameterCode"
+                                     Placeholder="Parameter Code"
+                                     class="instrument-control" />
+                </div>
 
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Sex:</label>
-        <FluentSelect TOption="string" @bind-Value="Model.PatientSex" Style="width: 100%;">
-            <FluentOption Value="">-- Select --</FluentOption>
-            <FluentOption Value="Male">Male</FluentOption>
-            <FluentOption Value="Female">Female</FluentOption>
-            <FluentOption Value="Other">Other</FluentOption>
-        </FluentSelect>
-    </div>
+                <!-- Value -->
+                <div>
+                    <label class="instrument-label">Value</label>
+                    <FluentTextField @bind-Value="currentResult.Value"
+                                     Placeholder="Result Value"
+                                     class="instrument-control"
+                                     Style="margin-bottom: 0.5rem;" />
+                </div>
 
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Patient Birthdate:</label>
-        <FluentTextField @bind-Value="Model.PatientBirthdate" Placeholder="e.g. 1990-01-01" Type="date" Style="width: 100%;" />
-    </div>
+                <!-- Comments -->
+                <div>
+                    <label class="instrument-label">Comments</label>
+                    <FluentButton Appearance="Appearance.Outline"
+                                  OnClick="@(() => AddResultComment(currentResult))"
+                                  class="instrument-control"
+                                  Style="margin-bottom: 0.5rem;">
+                        <FluentIcon Icon="@(Icons.Regular.Size16.Comment)" Slot="start" />
+                        Add Comment
+                    </FluentButton>
 
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Rack:</label>
-        <FluentTextField @bind-Value="Model.Rack" Placeholder="e.g. Rack-A" Style="width: 100%;" />
-    </div>
+                    <div class="result-comments-container" style="margin-top: 0.5rem;">
+                        @foreach (var resultComment in currentResult.Comments)
+                        {
+                            var currentResultComment = resultComment;
+                            <div class="comment-row">
+                                <FluentSelect TOption="string"
+                                              @bind-Value="currentResultComment.CommentType"
+                                              class="comment-type">
+                                    <FluentOption Value="Technical">Technical</FluentOption>
+                                    <FluentOption Value="Clinical">Clinical</FluentOption>
+                                    <FluentOption Value="Others">Others</FluentOption>
+                                </FluentSelect>
+                                <FluentTextField @bind-Value="currentResultComment.CommentText"
+                                                 Placeholder="Enter comment"
+                                                 class="comment-text" />
+                                <FluentButton BackgroundColor="#1976d2"
+                                              OnClick="@(() => RemoveResultComment(currentResult, currentResultComment))"
+                                              class="delete-btn">
+                                    <FluentIcon Icon="@(Icons.Regular.Size20.CommentDismiss)" Style="fill:white;" />
+                                </FluentButton>
+                            </div>
+                        }
+                    </div>
+                </div>
 
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Position:</label>
-        <FluentTextField @bind-Value="Model.Position" Placeholder="e.g. Position-1" Style="width: 100%;" />
+                <!-- Delete Result Button -->
+                <div>
+                    <FluentButton BackgroundColor="#1976d2"
+                                  OnClick="@(() => RemoveResult(currentResult))"
+                                  Style="margin-top: 1.5rem;"
+                                  class="delete-btn">
+                        <FluentIcon Icon="@(Icons.Regular.Size20.Delete)" Style="fill:white;" />
+                    </FluentButton>
+                </div>
+            </div>
+        }
+
+        <FluentButton Appearance="Appearance.Outline"
+                      OnClick="@AddResult"
+                      Style="margin-top: 0.5rem;">
+            <FluentIcon Icon="@(Icons.Regular.Size20.Beaker)" Slot="start" />
+            Add Result
+        </FluentButton>
     </div>
-</div>
+</EditForm>
 
 @code {
-    [Parameter]
-    public InstrumentResultActionModel Model { get; set; } = default!;
+    [Parameter] public InstrumentResultActionModel Model { get; set; } = default!;
+
+    private EditForm? editForm;
+
+    private void AddRunComment()
+    {
+        Model.RunComments.Add(new RunComment());
+        StateHasChanged();
+    }
+
+    private void RemoveRunComment(RunComment comment)
+    {
+        Model.RunComments.Remove(comment);
+        StateHasChanged();
+    }
+
+    private void AddResult()
+    {
+        Model.Results.Add(new ResultItem());
+        StateHasChanged();
+    }
+
+    private void RemoveResult(ResultItem result)
+    {
+        Model.Results.Remove(result);
+        StateHasChanged();
+    }
+
+    private void AddResultComment(ResultItem result)
+    {
+        result.Comments.Add(new RunComment());
+        StateHasChanged();
+    }
+
+    private void RemoveResultComment(ResultItem result, RunComment comment)
+    {
+        result.Comments.Remove(comment);
+        StateHasChanged();
+    }
+
+    public bool Validate()
+    {
+        if (editForm?.EditContext != null)
+        {
+            return editForm.EditContext.Validate();
+        }
+        return false;
+    }
 }

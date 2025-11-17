@@ -9,7 +9,6 @@ builder.Services
     .AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// Add services to the container.
 //builder.Services.AddRazorComponents();
 builder.Services.AddFluentUIComponents();
 

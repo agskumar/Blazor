@@ -1,32 +1,382 @@
 ﻿@using ServerManagement.Models
 @using Microsoft.FluentUI.AspNetCore.Components
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 1rem 0;">
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Source:</label>
-        <FluentTextField @bind-Value="Model.Source" Placeholder="e.g. LIS System" Style="width: 100%;" />
+<style>
+    .lisorder-section {
+        margin-bottom: 2rem;
+    }
+
+    .lisorder-section-title {
+        font-size: 0.9rem;
+        font-weight: 550;
+        margin-bottom: 1rem;
+        color: black;
+        border-bottom: 2px solid #1976d2;
+        padding-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .lisorder-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem 2rem;
+        padding: 0.5rem 0.25rem;
+    }
+
+    .lisorder-row {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .lisorder-label {
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .lisorder-control {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .lisorder-row-full {
+        grid-column: 1 / -1;
+    }
+
+    .lisorder-datetime {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+        .lisorder-datetime > * {
+            flex: 1;
+        }
+
+    .lisorder-radio-group {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        padding: 0.5rem 0;
+    }
+
+    .validation-message {
+        color: #d32f2f;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+    }
+
+    .parameter-codes-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .selected-codes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        min-height: 32px;
+    }
+
+    .code-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.25rem 0.5rem;
+        background-color: #1976d2;
+        color: white;
+        border-radius: 3px;
+        font-size: 0.75rem;
+    }
+
+    .code-tag-remove {
+        cursor: pointer;
+        border-radius: 2px;
+        transition: background-color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lisorder-control.valid,
+    .lisorder-control .valid,
+    .fluent-autocomplete.valid,
+    .fluent-text-field.valid,
+    .fluent-select.valid,
+    .valid,
+    input.valid,
+    select.valid,
+    textarea.valid,
+    .modified.valid,
+    .form-control.valid {
+        border-color: inherit !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    fluent-text-field.valid,
+    fluent-select.valid,
+    fluent-text-area.valid,
+    fluent-autocomplete.valid {
+        --neutral-stroke-rest: inherit !important;
+        --neutral-stroke-hover: inherit !important;
+        --neutral-stroke-focus: inherit !important;
+    }
+
+        .code-tag-remove:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+    @@media (max-width: 768px) {
+        .lisorder-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .lisorder-datetime {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<EditForm Model="@Model" @ref="editForm">
+    <DataAnnotationsValidator />
+
+    <div class="lisorder-section">
+        <h4 class="lisorder-section-title">Sample Informations</h4>
+        <div class="lisorder-grid">
+            <!-- Source LIS -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Source LIS <span style="color: red;">*</span></label>
+                <FluentSelect TOption="string"
+                              @bind-Value="Model.SourceLIS"
+                              Placeholder="-- Select Source LIS --"
+                              class="lisorder-control">
+                    <FluentOption Value="LIS1">LIS1</FluentOption>
+                    <FluentOption Value="LIS2">LIS2</FluentOption>
+                    <FluentOption Value="LIS3">LIS3</FluentOption>
+                </FluentSelect>
+                <ValidationMessage For="@(() => Model.SourceLIS)" />
+            </div>
+
+            <!-- Sample ID -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Sample ID <span style="color: red;">*</span></label>
+                <FluentTextField @bind-Value="Model.SampleId"
+                                 Placeholder="Enter Sample ID"
+                                 class="lisorder-control" />
+                <ValidationMessage For="@(() => Model.SampleId)" />
+            </div>
+
+            <!-- Parameter Codes -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Parameter Codes <span style="color: red;">*</span></label>
+                <div class="parameter-codes-container">
+                    @if (Model.ParameterCodes.Any())
+                    {
+                        <div class="selected-codes">
+                            @foreach (var paramCode in Model.ParameterCodes)
+                            {
+                                var currentCode = paramCode;
+                                <span class="code-tag">
+                                    @currentCode
+                                    <span class="code-tag-remove" @onclick="() => RemoveParameterCode(currentCode)">
+                                        <FluentIcon Icon="@(Icons.Regular.Size16.Dismiss)" Style="fill: white;" />
+                                    </span>
+                                </span>
+                            }
+                        </div>
+                    }
+                    <FluentAutocomplete TOption="string"
+                                        AutoComplete="off"
+                                        Placeholder="Type to search and select..."
+                                        OnOptionsSearch="@OnSearchAsync"
+                                        MaximumSelectedOptions="20"
+                                        OptionText="@(item => item)"
+                                        SelectedOptions="@TempSelectedCodes"
+                                        SelectedOptionsChanged="@OnParameterCodesChanged"
+                                        class="lisorder-control" />
+                </div>
+                <ValidationMessage For="@(() => Model.ParameterCodes)" />
+            </div>
+
+            <!-- Priority -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Priority</label>
+                <FluentRadioGroup @bind-Value="Model.Priority" class="lisorder-control">
+                    <div class="lisorder-radio-group">
+                        <FluentRadio Value="@("Stat")">Stat</FluentRadio>
+                        <FluentRadio Value="@("Routine")">Routine</FluentRadio>
+                    </div>
+                </FluentRadioGroup>
+            </div>
+
+            <!-- Drawing Date & Time -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Drawing Date & Time</label>
+                <div class="lisorder-datetime">
+                    <FluentDatePicker @bind-Value="Model.DrawingDate"
+                                      Placeholder="Select Date" />
+                    <FluentTimePicker @bind-Value="Model.DrawingTime"
+                                      Placeholder="Select Time" />
+                </div>
+            </div>
+
+            <!-- Doctor -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Doctor</label>
+                <FluentTextField @bind-Value="Model.Doctor"
+                                 Placeholder="Enter Doctor Name"
+                                 class="lisorder-control" />
+            </div>
+
+            <!-- Interpretation Comment -->
+            <div class="lisorder-row lisorder-row-full">
+                <label class="lisorder-label">Interpretation Comment</label>
+                <FluentTextArea @bind-Value="Model.InterpretationComment"
+                                Placeholder="Enter interpretation comment"
+                                Rows="3"
+                                class="lisorder-control" />
+            </div>
+
+            <!-- Technical Comment -->
+            <div class="lisorder-row lisorder-row-full">
+                <label class="lisorder-label">Technical Comment</label>
+                <FluentTextArea @bind-Value="Model.TechnicalComment"
+                                Placeholder="Enter technical comment"
+                                Rows="3"
+                                class="lisorder-control" />
+            </div>
+        </div>
     </div>
 
-    <div>
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Sample ID:</label>
-        <FluentSelect TOption="string" @bind-Value="Model.SampleId" Style="width: 100%;">
-            <FluentOption Value="">-- Select --</FluentOption>
-            <FluentOption Value="SIDCT1-{Param}">SIDCT1-{Param}</FluentOption>
-            <FluentOption Value="SIDCT2-{Param}">SIDCT2-{Param}</FluentOption>
-        </FluentSelect>
-    </div>
+    <div class="lisorder-section">
+        <h4 class="lisorder-section-title">Patient Informations</h4>
+        <div class="lisorder-grid">
+            <!-- Patient ID -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Patient ID</label>
+                <FluentTextField @bind-Value="Model.PatientId"
+                                 Placeholder="Enter Patient ID"
+                                 class="lisorder-control" />
+            </div>
 
-    <div style="grid-column: 1 / -1;">
-        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Test:</label>
-        <FluentSelect TOption="string" @bind-Value="Model.Test" Style="width: 100%;">
-            <FluentOption Value="">-- Select --</FluentOption>
-            <FluentOption Value="{Param}, LIH">{Param}, LIH</FluentOption>
-            <FluentOption Value="{Param}, XYZ">{Param}, XYZ</FluentOption>
-        </FluentSelect>
+            <!-- Patient Last Name -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Patient Last Name</label>
+                <FluentTextField @bind-Value="Model.PatientLastName"
+                                 Placeholder="Enter Last Name"
+                                 class="lisorder-control" />
+            </div>
+
+            <!-- Patient First Name -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Patient First Name</label>
+                <FluentTextField @bind-Value="Model.PatientFirstName"
+                                 Placeholder="Enter First Name"
+                                 class="lisorder-control" />
+            </div>
+
+            <!-- Patient Sex -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Patient Sex</label>
+                <FluentRadioGroup @bind-Value="Model.PatientSex" class="lisorder-control">
+                    <div class="lisorder-radio-group">
+                        <FluentRadio Value="@("Male")">Male</FluentRadio>
+                        <FluentRadio Value="@("Female")">Female</FluentRadio>
+                        <FluentRadio Value="@("Unknown")">Unknown</FluentRadio>
+                    </div>
+                </FluentRadioGroup>
+            </div>
+
+            <!-- Patient Birthdate -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Patient Birthdate</label>
+                <FluentDatePicker @bind-Value="Model.PatientBirthdate"
+                                  Placeholder="DD/MM/YYYY"
+                                  class="lisorder-control" />
+            </div>
+
+            <!-- Department -->
+            <div class="lisorder-row">
+                <label class="lisorder-label">Department</label>
+                <FluentTextField @bind-Value="Model.Department"
+                                 Placeholder="Enter Department"
+                                 class="lisorder-control" />
+            </div>
+
+            <!-- Clinical Comment -->
+            <div class="lisorder-row lisorder-row-full">
+                <label class="lisorder-label">Clinical Comment</label>
+                <FluentTextArea @bind-Value="Model.ClinicalComment"
+                                Placeholder="Enter clinical comment"
+                                Rows="3"
+                                class="lisorder-control" />
+            </div>
+        </div>
     </div>
-</div>
+</EditForm>
 
 @code {
-    [Parameter]
-    public LisOrderActionModel Model { get; set; } = default!;
+    [Parameter] public LisOrderActionModel Model { get; set; } = default!;
+
+    private EditForm? editForm;
+    private IEnumerable<string> TempSelectedCodes = Array.Empty<string>();
+
+    private readonly List<string> AllParameterCodes = new()
+    {
+        "GLUC", "HBA1C", "CHOL", "TRIG", "HDL", "LDL",
+        "TSH", "FT4", "FT3", "CRP", "ALT", "AST", "BUN",
+        "CREAT", "NA", "K", "CL", "CA", "MG", "PHOS"
+    };
+
+    private async Task OnSearchAsync(OptionsSearchEventArgs<string> e)
+    {
+        e.Items = string.IsNullOrEmpty(e.Text)
+            ? AllParameterCodes.Where(c => !Model.ParameterCodes.Contains(c))
+            : AllParameterCodes
+                .Where(c => !Model.ParameterCodes.Contains(c) &&
+                           c.Contains(e.Text, StringComparison.OrdinalIgnoreCase));
+
+        await Task.CompletedTask;
+    }
+
+    private void OnParameterCodesChanged(IEnumerable<string> selectedCodes)
+    {
+        foreach (var code in selectedCodes)
+        {
+            if (!Model.ParameterCodes.Contains(code))
+            {
+                Model.ParameterCodes.Add(code);
+            }
+        }
+
+        // Clear the temporary selection
+        TempSelectedCodes = Array.Empty<string>();
+
+        // Notify EditContext of the change to trigger validation
+        editForm?.EditContext?.NotifyFieldChanged(editForm.EditContext.Field(nameof(Model.ParameterCodes)));
+
+        StateHasChanged();
+    }
+
+    private void RemoveParameterCode(string code)
+    {
+        Model.ParameterCodes.Remove(code);
+
+        // Notify EditContext of the change to trigger validation
+        editForm?.EditContext?.NotifyFieldChanged(editForm.EditContext.Field(nameof(Model.ParameterCodes)));
+
+        StateHasChanged();
+    }
+
+    public bool Validate()
+    {
+        if (editForm?.EditContext != null)
+        {
+            return editForm.EditContext.Validate();
+        }
+        return false;
+    }
 }

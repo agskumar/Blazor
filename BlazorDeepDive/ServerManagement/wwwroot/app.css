@@ -56,34 +56,13 @@ a.btn:hover .bi-pencil {
 
 .action-card {
     padding: 1rem;
-    overflow: visible;
+/*    overflow: auto;*/
     box-sizing: border-box;
 }
 
 .action-fields {
     min-height: 120px;
     max-height: 45vh; 
-    overflow-y: auto; 
+/*    overflow: auto; */
     padding-bottom: 0.25rem;
 }
-
-/*.action-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background-color: #fafafa;
-}
-
-.action-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
-
-.action-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.75rem;
-}*/
