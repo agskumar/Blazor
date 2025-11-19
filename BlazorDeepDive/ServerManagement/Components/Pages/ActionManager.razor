@@ -1,142 +1,57 @@
-﻿@page "/smartconfig"
+﻿@page "/action"
 @rendermode InteractiveServer
 @using ServerManagement.Models
 @using ServerManagement.Components.Controls
 @using Microsoft.FluentUI.AspNetCore.Components
 @inject IToastService ToastService
 
-<h3></h3>
+<h3>Actions</h3>
 
-<div style="display:flex; justify-content:flex-end; margin-bottom:1rem;">
-    <FluentButton Style="width:56px;" BackgroundColor="#1976d2" OnClick="@AddAction">
-        <FluentIcon Icon="@(Icons.Regular.Size24.AddSquare)" Style="fill:white;" />
-    </FluentButton>
-</div>
-
-@if (Actions.Count > 0)
-{
-    @for (int i = 0; i < Actions.Count; i++)
-    {
-        var action = Actions[i];
-        var index = i;
-
-        <ActionConfig @ref="actionConfigRefs[index]"
-                      @key="@action"
-                      Action="@action"
-                      ActionNumber="@(index + 1)"
-                      DeleteAction="() => DeleteAction(index)"
-                      OnActionChanged="(newAction) => UpdateAction(index, newAction)"
-                      CopyAction="CopyActionAsync" />
-    }
-}
-else
-{
-    <p>No actions yet. Click the + button to add one.</p>
-}
-
-
-<div style="display:flex; justify-content:space-between; margin-top:2rem; margin-bottom:2rem;">
-    <FluentButton Style="color:white;" BackgroundColor="#1976d2" OnClick="@Cancel">Cancel</FluentButton>
-    <FluentButton Style="color:white;" BackgroundColor="#1976d2" OnClick="@Apply">Apply</FluentButton>
-</div>
+<EntityManager TItem="ActionModel"
+               Items="@Actions"
+               ConfigMapping="@ActionConfigMapping"
+               CreateDefault="@CreateDefaultAction"
+               OnApply="@OnApply"
+               OnCancel="@OnCancel" />
 
 @code {
-    private readonly List<ActionModel> Actions = new();
-    private readonly Dictionary<int, ActionConfig> actionConfigRefs = new();
+    private List<ActionModel> Actions { get; set; } = new();
+
+    private readonly Dictionary<Type, Type> ActionConfigMapping = new()
+    {
+        { typeof(LisOrderActionModel), typeof(ActionConfig) },
+        { typeof(InstrumentResultActionModel), typeof(ActionConfig) },
+        { typeof(EmptyAction), typeof(ActionConfig) }
+    };
 
     protected override void OnInitialized()
     {
         if (Actions.Count == 0)
         {
-            AddAction();
+            Actions.Add(CreateDefaultAction());
         }
     }
 
-    private void AddAction()
+    private ActionModel CreateDefaultAction()
     {
-        Actions.Add(new EmptyAction());
-        actionConfigRefs[Actions.Count - 1] = null!;
-        StateHasChanged();
+        return new EmptyAction();
     }
 
-    private void DeleteAction(int index)
+    private async Task OnApply(List<ActionModel> actions)
     {
-        if (index >= 0 && index < Actions.Count)
-        {
-            Actions.RemoveAt(index);
-            actionConfigRefs.Remove(index);
-            
-            // Re-index the dictionary
-            var newDict = new Dictionary<int, ActionConfig>();
-            for (int i = 0; i < Actions.Count; i++)
-            {
-                if (actionConfigRefs.ContainsKey(i < index ? i : i + 1))
-                {
-                    newDict[i] = actionConfigRefs[i < index ? i : i + 1];
-                }
-            }
-            actionConfigRefs.Clear();
-            foreach (var kvp in newDict)
-            {
-                actionConfigRefs[kvp.Key] = kvp.Value;
-            }
-            
-            StateHasChanged();
-        }
-    }
-
-    private void UpdateAction(int index, ActionModel newAction)
-    {
-        if (index >= 0 && index < Actions.Count)
-        {
-            Actions[index] = newAction;
-            StateHasChanged();
-        }
-    }
-
-    private async Task CopyActionAsync(ActionModel action)
-    {
-        var clonedAction = action.Clone();
-        Actions.Add(clonedAction);
-        actionConfigRefs[Actions.Count - 1] = null!;
-        StateHasChanged();
-        await Task.CompletedTask;
-    }
-
-    private void Cancel()
-    {
-        // Clear all actions and reset
-        Actions.Clear();
-        actionConfigRefs.Clear();
-        AddAction();
-        StateHasChanged();
-    }
-
-    private void Apply()
-    {
-        bool allValid = true;
-
-        // Validate all actions
-        foreach (var kvp in actionConfigRefs)
-        {
-            if (kvp.Value != null)
-            {
-                bool isValid = kvp.Value.ValidateAction();
-                if (!isValid)
-                {
-                    allValid = false;
-                }
-            }
-        }
+        bool allValid = actions.All(a => a != null);
 
         if (allValid)
         {
             ToastService.ShowSuccess("All actions are valid!");
-            // Here you can add logic to save or process the actions
         }
-        else
-        {
-            ToastService.ShowError("Please fix validation errors before applying.");
-        }
+        await Task.CompletedTask;
+    }
+
+    private async Task OnCancel()
+    {
+        Actions.Clear();
+        Actions.Add(CreateDefaultAction());
+        await Task.CompletedTask;
     }
 }

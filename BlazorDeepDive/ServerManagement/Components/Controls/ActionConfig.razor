@@ -6,46 +6,46 @@
 
 <style>
     .action-card {
-        margin-bottom:1.5rem;
-        padding:1rem;
-        box-sizing:border-box;
-        width:100%;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .action-header {
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:1rem;
-        flex-wrap:wrap;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
     }
 
     .action-header-left {
-        display:flex;
-        align-items:center;
-        gap:1rem;
-        flex-wrap:wrap;
-        min-width:0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        min-width: 0;
     }
 
-    .action-header-left span {
-        font-weight:100;
-        white-space:nowrap;
-    }
+        .action-header-left span {
+            font-weight: 100;
+            white-space: nowrap;
+        }
 
     .action-toolbar {
-        display:flex;
-        gap:0.5rem;
-        flex-shrink:0;
+        display: flex;
+        gap: 0.5rem;
+        flex-shrink: 0;
     }
 
     .action-body {
-        min-height:250px;
-        max-height:55vh;
-        overflow:auto; 
-        padding-bottom:0.25rem;
-        margin-top:0.75rem;
-        box-sizing:border-box;
+        min-height: 250px;
+        max-height: 55vh;
+        overflow: auto;
+        padding-bottom: 0.25rem;
+        margin-top: 0.75rem;
+        box-sizing: border-box;
     }
 
     .empty-state {
@@ -57,18 +57,18 @@
 
     @@media (max-width:900px) {
         .action-header {
-            flex-direction:column;
-            align-items:stretch;
+            flex-direction: column;
+            align-items: stretch;
         }
 
         .action-toolbar {
-            justify-content:flex-start;
+            justify-content: flex-start;
         }
     }
 
     @@media (max-width:750px) {
         .action-body .instrument-grid {
-            grid-template-columns:1fr !important;
+            grid-template-columns: 1fr !important;
         }
     }
 </style>
@@ -76,7 +76,7 @@
 <FluentCard AreaRestricted="false" Class="action-card">
     <div class="action-header">
         <div class="action-header-left">
-            <span>Action @ActionNumber:</span>
+            <span>Action @(Index + 1):</span>
             <FluentSelect TOption="string"
                           Value="@GetSelectedValue()"
                           ValueChanged="@OnTypeChanged"
@@ -88,28 +88,24 @@
                 }
             </FluentSelect>
         </div>
-
         <div class="action-toolbar">
             <FluentButton BackgroundColor="#1976d2"
-                          Disabled="@(Action.Type == ActionType.None)"
-                          OnClick="@(() => CopyAction.InvokeAsync(Action))">
+                          Disabled="@(Item.Type == ActionType.None)"
+                          OnClick="@(() => OnCopy.InvokeAsync(Item))">
                 <FluentIcon Icon="@(Icons.Regular.Size24.Copy)" Style="fill:white;" />
             </FluentButton>
-
-            <FluentButton BackgroundColor="#1976d2" OnClick="@(() => DeleteAction.InvokeAsync())">
+            <FluentButton BackgroundColor="#1976d2" OnClick="@(() => OnDelete.InvokeAsync())">
                 <FluentIcon Icon="@(Icons.Regular.Size24.Delete)" Style="fill:white;" />
             </FluentButton>
         </div>
     </div>
-            
     <hr style="border:medium; color:dimgrey; margin:0.75rem 0;" />
-
     <div class="action-body">
-        @if (Action.Type == ActionType.LisOrder && Action is LisOrderActionModel lisModel)
+        @if (Item.Type == ActionType.LisOrder && Item is LisOrderActionModel lisModel)
         {
             <LisOrder @ref="lisOrderRef" Model="@lisModel" />
         }
-        else if (Action.Type == ActionType.InstrumentResult && Action is InstrumentResultActionModel instModel)
+        else if (Item.Type == ActionType.InstrumentResult && Item is InstrumentResultActionModel instModel)
         {
             <InstrumentResult @ref="instrumentResultRef" Model="@instModel" />
         }
@@ -125,31 +121,48 @@
 </FluentCard>
 
 @code {
-    [Parameter] public ActionModel Action { get; set; } = default!;
-    [Parameter] public int ActionNumber { get; set; }
-    [Parameter] public EventCallback<ActionModel> CopyAction { get; set; }
-    [Parameter] public EventCallback DeleteAction { get; set; }
-    [Parameter] public EventCallback<ActionModel> OnActionChanged { get; set; }
-
+    [Parameter] public ActionModel Item { get; set; } = default!;
+    [Parameter] public int Index { get; set; }
+    [Parameter] public EventCallback<ActionModel> OnCopy { get; set; }
+    [Parameter] public EventCallback OnDelete { get; set; }
+    [Parameter] public EventCallback<IStepNode> OnActionChanged { get; set; }
+    [Parameter] public bool ShouldValidate { get; set; }
+    [Parameter] public EventCallback<bool> ShouldValidateChanged { get; set; }
     private readonly List<ActionType> ActionTypes = Enum.GetValues<ActionType>().ToList();
     private LisOrder? lisOrderRef;
     private InstrumentResult? instrumentResultRef;
+    private bool lastShouldValidate = false;
+
+    protected override void OnParametersSet()
+    {
+        if (ShouldValidate && !lastShouldValidate)
+        {
+            lastShouldValidate = true;
+            ValidateAction();
+        }
+        else if (!ShouldValidate)
+        {
+            lastShouldValidate = false;
+        }
+    }
 
     public bool ValidateAction()
     {
-        if (Action.Type == ActionType.LisOrder && lisOrderRef != null)
+        if (Item.Type == ActionType.LisOrder && lisOrderRef != null)
         {
             return lisOrderRef.Validate();
         }
-        else if (Action.Type == ActionType.InstrumentResult && instrumentResultRef != null)
+        else if (Item.Type == ActionType.InstrumentResult && instrumentResultRef != null)
         {
             return instrumentResultRef.Validate();
         }
         return true;
     }
 
-    private string GetSelectedValue() =>
-        Action.Type == ActionType.None ? "" : Action.Type.ToString();
+    private string GetSelectedValue()
+    {
+        return Item.Type == ActionType.None ? "" : Item.Type.ToString();
+    }
 
     private async Task OnTypeChanged(string value)
     {

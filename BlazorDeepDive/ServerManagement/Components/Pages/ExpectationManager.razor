@@ -1,0 +1,68 @@
+@page "/expectations"
+@rendermode InteractiveServer
+@using ServerManagement.Models
+@using ServerManagement.Components.Controls
+@using Microsoft.FluentUI.AspNetCore.Components
+@inject IToastService ToastService
+
+<h3>Expectations</h3>
+
+<EntityManager TItem="ExpectationModel"
+               Items="@Expectations"
+               ConfigMapping="@ExpectationConfigMapping"
+               CreateDefault="@CreateDefaultExpectation"
+               OnApply="@OnApply"
+               OnCancel="@OnCancel" />
+
+@code {
+    private List<ExpectationModel> Expectations { get; set; } = new();
+
+    private readonly Dictionary<Type, Type> ExpectationConfigMapping = new()
+    {
+        { typeof(ResultValueExpectationModel), typeof(ExpectationConfig) },
+        { typeof(ResultCommentsExpectationModel), typeof(ExpectationConfig) },
+        { typeof(ResultStatusExpectationModel), typeof(ExpectationConfig) },
+        { typeof(ResultCriticalExpectationModel), typeof(ExpectationConfig) },
+        { typeof(LastRunCommentsExpectationModel), typeof(ExpectationConfig) },
+        { typeof(TestStatusExpectationModel), typeof(ExpectationConfig) },
+        { typeof(TestAnalysisMethodExpectationModel), typeof(ExpectationConfig) },
+        { typeof(SamplePriorityExpectationModel), typeof(ExpectationConfig) },
+        { typeof(SampleTagExpectationModel), typeof(ExpectationConfig) },
+        { typeof(SampleAssignmentExpectationModel), typeof(ExpectationConfig) },
+        { typeof(SampleCommentsExpectationModel), typeof(ExpectationConfig) },
+        { typeof(OrderStatusExpectationModel), typeof(ExpectationConfig) },
+        { typeof(OrderTagExpectationModel), typeof(ExpectationConfig) },
+        { typeof(PatientTagExpectationModel), typeof(ExpectationConfig) },
+        { typeof(EmptyExpectation), typeof(ExpectationConfig) }
+    };
+
+    protected override void OnInitialized()
+    {
+        if (Expectations.Count == 0)
+        {
+            Expectations.Add(CreateDefaultExpectation());
+        }
+    }
+
+    private ExpectationModel CreateDefaultExpectation()
+    {
+        return new EmptyExpectation();
+    }
+
+    private async Task OnApply(List<ExpectationModel> expectations)
+    {
+        bool allValid = expectations.All(e => e != null);
+        if (allValid)
+        {
+            ToastService.ShowSuccess("All expectations are valid!");
+        }
+        await Task.CompletedTask;
+    }
+
+    private async Task OnCancel()
+    {
+        Expectations.Clear();
+        Expectations.Add(CreateDefaultExpectation());
+        await Task.CompletedTask;
+    }
+}

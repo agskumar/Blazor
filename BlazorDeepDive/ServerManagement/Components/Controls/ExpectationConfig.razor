@@ -1,0 +1,353 @@
+﻿@rendermode InteractiveServer
+@using ServerManagement.Models
+@using Microsoft.FluentUI.AspNetCore.Components
+@using System.Linq.Expressions
+
+<style>
+    .expectation-card {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .expectation-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .expectation-header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        min-width: 0;
+    }
+
+        .expectation-header-left span {
+            font-weight: 100;
+            white-space: nowrap;
+        }
+
+    .expectation-toolbar {
+        display: flex;
+        gap: 0.5rem;
+        flex-shrink: 0;
+    }
+
+    .expectation-body {
+        min-height: 80px;
+        max-height: 55vh;
+        overflow: auto;
+        padding-bottom: 0.25rem;
+        margin-top: 0.75rem;
+        box-sizing: border-box;
+        padding-left: 7.5rem;
+    }
+
+    .expectation-row-group {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        align-items: flex-start;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .expectation-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 180px;
+        max-width: 240px;
+        flex: 1 1 0;
+    }
+
+    .expectation-label {
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+        text-align: left;
+    }
+
+    .expectation-control {
+        min-width: 120px;
+        max-width: 220px;
+        width: 100%;
+    }
+
+    .validation-message {
+        color: #d32f2f;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        text-align: left;
+    }
+
+    .invalid,
+    .fluent-text-field.invalid {
+        border: 1.5px solid #d32f2f !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    .empty-state {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 250px;
+    }
+</style>
+
+<FluentCard AreaRestricted="false" Class="expectation-card">
+    <div class="expectation-header">
+        <div class="expectation-header-left">
+            <span>Expectation @(Index + 1):</span>
+            <FluentSelect TOption="string"
+                          Value="@GetSelectedValue()"
+                          ValueChanged="@OnTypeChanged"
+                          Placeholder="-- Select Option --"
+                          Style="width:220px;">
+                @foreach (var type in ExpectationTypes.Where(t => t != ExpectationType.None))
+                {
+                    <FluentOption Value="@type.ToString()">@FormatEnumName(type.ToString())</FluentOption>
+                }
+            </FluentSelect>
+        </div>
+        <div class="expectation-toolbar">
+            <FluentButton BackgroundColor="#1976d2"
+                          Disabled="@(Item.Type == ExpectationType.None)"
+                          OnClick="@(() => OnCopy.InvokeAsync(Item))">
+                <FluentIcon Icon="@(Icons.Regular.Size24.Copy)" Style="fill:white;" />
+            </FluentButton>
+            <FluentButton BackgroundColor="#1976d2" OnClick="@(() => OnDelete.InvokeAsync())">
+                <FluentIcon Icon="@(Icons.Regular.Size24.Delete)" Style="fill:white;" />
+            </FluentButton>
+        </div>
+    </div>
+    <EditForm Model="@Item" @ref="editForm">
+        <DataAnnotationsValidator />
+        <hr style="border:medium; color:dimgrey; margin:0.75rem 0;" />
+        <div class="expectation-body">
+            @switch (Item.Type)
+            {
+                case ExpectationType.ResultValue when Item is ResultValueExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.ParameterCode, "Parameter Code", true, () => m.ParameterCode)
+                        @RenderRow(m.Comparator, "Comparator", true, () => m.Comparator)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.ResultComments when Item is ResultCommentsExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.ParameterCode, "Parameter Code", true, () => m.ParameterCode)
+                        @RenderRow(m.Comparator, "Comparator", true, () => m.Comparator)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.ResultStatus when Item is ResultStatusExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.ParameterCode, "Parameter Code", true, () => m.ParameterCode)
+                        @RenderRow(m.PositionBeforeLast, "Position Before Last", false, () => m.PositionBeforeLast)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.ResultCritical when Item is ResultCriticalExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.ParameterCode, "Parameter Code", true, () => m.ParameterCode)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.LastRunComments when Item is LastRunCommentsExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.Comparator, "Comparator", true, () => m.Comparator)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.TestStatus when Item is TestStatusExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.ParameterCode, "Parameter Code", true, () => m.ParameterCode)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.TestAnalysisMethod when Item is TestAnalysisMethodExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.ParameterCode, "Parameter Code", true, () => m.ParameterCode)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.SamplePriority when Item is SamplePriorityExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.SampleTag when Item is SampleTagExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.SampleAssignment when Item is SampleAssignmentExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.SampleComments when Item is SampleCommentsExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.Comparator, "Comparator", true, () => m.Comparator)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.OrderStatus when Item is OrderStatusExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.OrderTag when Item is OrderTagExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                        @RenderRow(m.Value, "Value", true, () => m.Value)
+                    </div>
+                    break;
+                case ExpectationType.PatientTag when Item is PatientTagExpectationModel m:
+                    <div class="expectation-row-group">
+                        @RenderRow(m.SampleId, "Sample ID", true, () => m.SampleId)
+                    </div>
+                    break;
+                default:
+                    <div class="empty-state">
+                        <p style="color:gray; text-align:center; margin:0; opacity:0.8;">
+                            ℹ️ Please select required Expectation
+                        </p>
+                    </div>
+                    break;
+            }
+        </div>
+    </EditForm>
+</FluentCard>
+
+@code {
+    [Parameter] public ExpectationModel Item { get; set; } = default!;
+    [Parameter] public int Index { get; set; }
+    [Parameter] public EventCallback<ExpectationModel> OnCopy { get; set; }
+    [Parameter] public EventCallback OnDelete { get; set; }
+    [Parameter] public EventCallback<IStepNode> OnExpectationChanged { get; set; }
+    [Parameter] public bool ShouldValidate { get; set; }
+
+    private readonly List<ExpectationType> ExpectationTypes = Enum.GetValues<ExpectationType>().ToList();
+    private EditForm? editForm;
+    private bool lastShouldValidate = false;
+
+    protected override void OnParametersSet()
+    {
+        if (ShouldValidate && !lastShouldValidate)
+        {
+            lastShouldValidate = true;
+            ValidateExpectation();
+        }
+        else if (!ShouldValidate)
+        {
+            lastShouldValidate = false;
+        }
+    }
+
+    private string FormatEnumName(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return name;
+        var result = new System.Text.StringBuilder();
+        result.Append(name[0]);
+        for (int i = 1; i < name.Length; i++)
+        {
+            if (char.IsUpper(name[i]) && !char.IsUpper(name[i - 1]))
+                result.Append(' ');
+            result.Append(name[i]);
+        }
+        return result.ToString();
+    }
+
+    public bool ValidateExpectation()
+    {
+        if (editForm?.EditContext != null)
+        {
+            return editForm.EditContext.Validate();
+        }
+        return false;
+    }
+
+    private string GetSelectedValue() =>
+        Item.Type == ExpectationType.None ? "" : Item.Type.ToString();
+
+    private async Task OnTypeChanged(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return;
+        if (!Enum.TryParse<ExpectationType>(value, out var newType)) return;
+
+        ExpectationModel newExpectation = newType switch
+        {
+            ExpectationType.ResultValue => new ResultValueExpectationModel(),
+            ExpectationType.ResultComments => new ResultCommentsExpectationModel(),
+            ExpectationType.ResultStatus => new ResultStatusExpectationModel(),
+            ExpectationType.ResultCritical => new ResultCriticalExpectationModel(),
+            ExpectationType.LastRunComments => new LastRunCommentsExpectationModel(),
+            ExpectationType.TestStatus => new TestStatusExpectationModel(),
+            ExpectationType.TestAnalysisMethod => new TestAnalysisMethodExpectationModel(),
+            ExpectationType.SamplePriority => new SamplePriorityExpectationModel(),
+            ExpectationType.SampleTag => new SampleTagExpectationModel(),
+            ExpectationType.SampleAssignment => new SampleAssignmentExpectationModel(),
+            ExpectationType.SampleComments => new SampleCommentsExpectationModel(),
+            ExpectationType.OrderStatus => new OrderStatusExpectationModel(),
+            ExpectationType.OrderTag => new OrderTagExpectationModel(),
+            ExpectationType.PatientTag => new PatientTagExpectationModel(),
+            _ => new EmptyExpectation()
+        };
+        await OnExpectationChanged.InvokeAsync(newExpectation);
+    }
+
+    private RenderFragment RenderRow(string? value, string label, bool required, Expression<Func<string?>> field)
+    {
+        return builder =>
+        {
+            var fieldIdentifier = new FieldIdentifier(Item, ((MemberExpression)field.Body).Member.Name);
+            var isInvalid = editForm?.EditContext?.GetValidationMessages(fieldIdentifier).Any() == true;
+            var fieldClass = isInvalid ? "expectation-control invalid" : "expectation-control";
+
+            builder.OpenElement(0, "div");
+            builder.AddAttribute(1, "class", "expectation-row");
+            builder.OpenElement(2, "label");
+            builder.AddAttribute(3, "class", "expectation-label");
+            builder.AddContent(4, label);
+            if (required)
+            {
+                builder.AddContent(5, " ");
+                builder.OpenElement(6, "span");
+                builder.AddAttribute(7, "style", "color: red;");
+                builder.AddContent(8, "*");
+                builder.CloseElement();
+            }
+            builder.CloseElement();
+            builder.OpenComponent<FluentTextField>(9);
+            builder.AddAttribute(10, "Value", value);
+            builder.AddAttribute(11, "ValueChanged", EventCallback.Factory.Create<string?>(this, v => field.Compile().Invoke()));
+            builder.AddAttribute(12, "class", fieldClass);
+            builder.CloseComponent();
+            builder.OpenComponent<ValidationMessage<string>>(13);
+            builder.AddAttribute(14, "For", field);
+            builder.AddAttribute(15, "class", "validation-message");
+            builder.CloseComponent();
+            builder.CloseElement();
+        };
+    }
+}

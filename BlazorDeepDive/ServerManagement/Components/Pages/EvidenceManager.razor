@@ -1,0 +1,52 @@
+@page "/evidence"
+@rendermode InteractiveServer
+@using ServerManagement.Models
+@using ServerManagement.Components.Controls
+
+<h3>Evidence</h3>
+
+<EntityManager TItem="EvidenceModel"
+               Items="@EvidenceItems"
+               ConfigMapping="@ConfigMapping"
+               CreateDefault="@CreateDefaultEvidence"
+               OnApply="@OnApply"
+               OnCancel="@OnCancel" />
+
+@code {
+    private List<EvidenceModel> EvidenceItems { get; set; } = new();
+    private Dictionary<Type, Type> ConfigMapping = new()
+    {
+        { typeof(AllSampleInfoEvidenceModel), typeof(EvidenceConfig) },
+        { typeof(LastRunResultsEvidenceModel), typeof(EvidenceConfig) },
+        { typeof(AllRunResultsEvidenceModel), typeof(EvidenceConfig) },
+        { typeof(LastRunRulesEvidenceModel), typeof(EvidenceConfig) },
+        { typeof(LastRunEffectiveRulesEvidenceModel), typeof(EvidenceConfig) },
+        { typeof(AllSampleRulesEvidenceModel), typeof(EvidenceConfig) },
+        { typeof(AllSampleEffectiveRulesEvidenceModel), typeof(EvidenceConfig) },
+        { typeof(LastRunResultsHistoryEvidenceModel), typeof(EvidenceConfig) },
+        { typeof(AllSampleHistoryEvidenceModel), typeof(EvidenceConfig) },
+        { typeof(FullOrderEvidenceModel), typeof(EvidenceConfig) },
+        { typeof(EmptyEvidence), typeof(EvidenceConfig) }
+    };
+
+    protected override void OnInitialized()
+    {
+        if (EvidenceItems.Count == 0)
+        {
+            EvidenceItems.Add(CreateDefaultEvidence());
+        }
+    }
+
+    private EvidenceModel CreateDefaultEvidence() => new EmptyEvidence();
+
+    private void OnApply(List<EvidenceModel> items)
+    {
+        // Handle apply logic
+    }
+
+    private void OnCancel()
+    {
+        EvidenceItems.Clear();
+        EvidenceItems.Add(CreateDefaultEvidence());
+    }
+}

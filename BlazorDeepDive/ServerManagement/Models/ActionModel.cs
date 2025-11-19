@@ -3,7 +3,7 @@ using ServerManagement.Validation;
 
 namespace ServerManagement.Models
 {
-    public abstract class ActionModel
+    public abstract class ActionModel :IStepNode
     {
         public ActionType Type { get; set; } = ActionType.None;
 
@@ -12,6 +12,10 @@ namespace ServerManagement.Models
             // shallow copy 
             return (ActionModel)MemberwiseClone();
         }
+
+        // Explicit interface implementation for IStepNode
+        IStepNode IStepNode.Clone() => Clone();
+        public string StepType => Type.ToString();
     }
 
     public class LisOrderActionModel : ActionModel

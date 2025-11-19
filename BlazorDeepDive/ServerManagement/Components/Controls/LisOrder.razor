@@ -100,6 +100,13 @@
         justify-content: center;
     }
 
+    .invalid,
+    .fluent-autocomplete.invalid {
+        /* border: 1.5px solid #d32f2f !important; */
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
     .lisorder-control.valid,
     .lisorder-control .valid,
     .fluent-autocomplete.valid,
@@ -190,13 +197,13 @@
                     }
                     <FluentAutocomplete TOption="string"
                                         AutoComplete="off"
-                                        Placeholder="Type to search and select..."
+                                        Placeholder="-- Select Parameter Code --"
                                         OnOptionsSearch="@OnSearchAsync"
                                         MaximumSelectedOptions="20"
                                         OptionText="@(item => item)"
                                         SelectedOptions="@TempSelectedCodes"
                                         SelectedOptionsChanged="@OnParameterCodesChanged"
-                                        class="lisorder-control" />
+                                        class="@(IsParameterCodesInvalid() ? "lisorder-control invalid" : "lisorder-control")" />
                 </div>
                 <ValidationMessage For="@(() => Model.ParameterCodes)" />
             </div>
@@ -352,10 +359,8 @@
             }
         }
 
-        // Clear the temporary selection
         TempSelectedCodes = Array.Empty<string>();
 
-        // Notify EditContext of the change to trigger validation
         editForm?.EditContext?.NotifyFieldChanged(editForm.EditContext.Field(nameof(Model.ParameterCodes)));
 
         StateHasChanged();
@@ -365,10 +370,15 @@
     {
         Model.ParameterCodes.Remove(code);
 
-        // Notify EditContext of the change to trigger validation
         editForm?.EditContext?.NotifyFieldChanged(editForm.EditContext.Field(nameof(Model.ParameterCodes)));
-
         StateHasChanged();
+    }
+
+    private bool IsParameterCodesInvalid()
+    {
+        if (editForm?.EditContext == null) return false;
+        var fieldIdentifier = editForm.EditContext.Field(nameof(Model.ParameterCodes));
+        return editForm.EditContext.GetValidationMessages(fieldIdentifier).Any();
     }
 
     public bool Validate()

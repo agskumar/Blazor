@@ -1,0 +1,259 @@
+﻿@rendermode InteractiveServer
+@using ServerManagement.Models
+@using Microsoft.FluentUI.AspNetCore.Components
+@using System.Linq.Expressions
+
+<style>
+    .evidence-card {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .evidence-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .evidence-header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        min-width: 0;
+    }
+
+        .evidence-header-left span {
+            font-weight: 100;
+            white-space: nowrap;
+        }
+
+    .evidence-toolbar {
+        display: flex;
+        gap: 0.5rem;
+        flex-shrink: 0;
+    }
+
+    .evidence-body {
+        min-height: 80px;
+        max-height: 55vh;
+        overflow: auto;
+        padding-bottom: 0.25rem;
+        margin-top: 0.75rem;
+        box-sizing: border-box;
+        padding-left: 7.5rem;
+    }
+
+    .evidence-row-group {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        align-items: flex-start;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .evidence-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 180px;
+        max-width: 240px;
+        flex: 1 1 0;
+    }
+
+    .evidence-label {
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+        text-align: left;
+    }
+
+    .evidence-control {
+        min-width: 120px;
+        max-width: 220px;
+        width: 100%;
+    }
+
+    .validation-message {
+        color: #d32f2f;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        text-align: left;
+    }
+
+    .invalid,
+    .fluent-text-field.invalid {
+        border: 1.5px solid #d32f2f !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    .empty-state {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 250px;
+    }
+</style>
+
+<FluentCard AreaRestricted="false" Class="evidence-card">
+    <div class="evidence-header">
+        <div class="evidence-header-left">
+            <span>Evidence @(Index + 1):</span>
+            <FluentSelect TOption="string"
+                          Value="@GetSelectedValue()"
+                          ValueChanged="@OnTypeChanged"
+                          Placeholder="-- Select Option --"
+                          Style="width:220px;">
+                @foreach (var type in EvidenceTypes.Where(t => t != EvidenceType.None))
+                {
+                    <FluentOption Value="@type.ToString()">@FormatEnumName(type.ToString())</FluentOption>
+                }
+            </FluentSelect>
+        </div>
+        <div class="evidence-toolbar">
+            <FluentButton BackgroundColor="#1976d2"
+                          Disabled="@(Item.Type == EvidenceType.None)"
+                          OnClick="@(() => OnCopy.InvokeAsync(Item))">
+                <FluentIcon Icon="@(Icons.Regular.Size24.Copy)" Style="fill:white;" />
+            </FluentButton>
+            <FluentButton BackgroundColor="#1976d2" OnClick="@(() => OnDelete.InvokeAsync())">
+                <FluentIcon Icon="@(Icons.Regular.Size24.Delete)" Style="fill:white;" />
+            </FluentButton>
+        </div>
+    </div>
+    <EditForm Model="@Item" @ref="editForm">
+        <DataAnnotationsValidator />
+        <hr style="border:medium; color:dimgrey; margin:0.75rem 0;" />
+        <div class="evidence-body">
+            @if (Item.Type != EvidenceType.None)
+            {
+                <div class="evidence-row-group">
+                    @RenderRow(Item.SampleId, "Sample ID", true, () => Item.SampleId)
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <p style="color:gray; text-align:center; margin:0; opacity:0.8;">
+                        ℹ️ Please select required Evidencee
+                    </p>
+                </div>
+            }
+        </div>
+    </EditForm>
+</FluentCard>
+
+@code {
+    [Parameter] public EvidenceModel Item { get; set; } = default!;
+    [Parameter] public int Index { get; set; }
+    [Parameter] public EventCallback<EvidenceModel> OnCopy { get; set; }
+    [Parameter] public EventCallback OnDelete { get; set; }
+    [Parameter] public EventCallback<IStepNode> OnEvidenceChanged { get; set; }
+    [Parameter] public bool ShouldValidate { get; set; }
+
+    private readonly List<EvidenceType> EvidenceTypes = Enum.GetValues<EvidenceType>().ToList();
+    private EditForm? editForm;
+    private bool lastShouldValidate = false;
+
+    protected override void OnParametersSet()
+    {
+        if (ShouldValidate && !lastShouldValidate)
+        {
+            lastShouldValidate = true;
+            ValidateEvidence();
+        }
+        else if (!ShouldValidate)
+        {
+            lastShouldValidate = false;
+        }
+    }
+
+    private string FormatEnumName(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return name;
+        var result = new System.Text.StringBuilder();
+        result.Append(name[0]);
+        for (int i = 1; i < name.Length; i++)
+        {
+            if (char.IsUpper(name[i]) && !char.IsUpper(name[i - 1]))
+                result.Append(' ');
+            result.Append(name[i]);
+        }
+        return result.ToString();
+    }
+
+    public bool ValidateEvidence()
+    {
+        if (editForm?.EditContext != null)
+        {
+            return editForm.EditContext.Validate();
+        }
+        return false;
+    }
+
+    private string GetSelectedValue() =>
+        Item.Type == EvidenceType.None ? "" : Item.Type.ToString();
+
+    private async Task OnTypeChanged(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return;
+        if (!Enum.TryParse<EvidenceType>(value, out var newType)) return;
+
+        EvidenceModel newEvidence = newType switch
+        {
+            EvidenceType.AllSampleInfo => new AllSampleInfoEvidenceModel(),
+            EvidenceType.LastRunResults => new LastRunResultsEvidenceModel(),
+            EvidenceType.AllRunResults => new AllRunResultsEvidenceModel(),
+            EvidenceType.LastRunRules => new LastRunRulesEvidenceModel(),
+            EvidenceType.LastRunEffectiveRules => new LastRunEffectiveRulesEvidenceModel(),
+            EvidenceType.AllSampleRules => new AllSampleRulesEvidenceModel(),
+            EvidenceType.AllSampleEffectiveRules => new AllSampleEffectiveRulesEvidenceModel(),
+            EvidenceType.LastRunResultsHistory => new LastRunResultsHistoryEvidenceModel(),
+            EvidenceType.AllSampleHistory => new AllSampleHistoryEvidenceModel(),
+            EvidenceType.FullOrder => new FullOrderEvidenceModel(),
+            _ => new EmptyEvidence()
+        };
+        await OnEvidenceChanged.InvokeAsync(newEvidence);
+    }
+
+    private RenderFragment RenderRow(string? value, string label, bool required, Expression<Func<string?>> field)
+    {
+        return builder =>
+        {
+            var fieldIdentifier = new FieldIdentifier(Item, ((MemberExpression)field.Body).Member.Name);
+            var isInvalid = editForm?.EditContext?.GetValidationMessages(fieldIdentifier).Any() == true;
+            var fieldClass = isInvalid ? "evidence-control invalid" : "evidence-control";
+
+            builder.OpenElement(0, "div");
+            builder.AddAttribute(1, "class", "evidence-row");
+            builder.OpenElement(2, "label");
+            builder.AddAttribute(3, "class", "evidence-label");
+            builder.AddContent(4, label);
+            if (required)
+            {
+                builder.AddContent(5, " ");
+                builder.OpenElement(6, "span");
+                builder.AddAttribute(7, "style", "color: red;");
+                builder.AddContent(8, "*");
+                builder.CloseElement();
+            }
+            builder.CloseElement();
+            builder.OpenComponent<FluentTextField>(9);
+            builder.AddAttribute(10, "Value", value);
+            builder.AddAttribute(11, "ValueChanged", EventCallback.Factory.Create<string?>(this, v => field.Compile().Invoke()));
+            builder.AddAttribute(12, "class", fieldClass);
+            builder.CloseComponent();
+            builder.OpenComponent<ValidationMessage<string>>(13);
+            builder.AddAttribute(14, "For", field);
+            builder.AddAttribute(15, "class", "validation-message");
+            builder.CloseComponent();
+            builder.CloseElement();
+        };
+    }
+}

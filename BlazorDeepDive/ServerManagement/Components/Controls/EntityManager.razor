@@ -1,0 +1,118 @@
+@typeparam TItem where TItem : ServerManagement.Models.IStepNode
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering
+@using ServerManagement.Models
+
+<div style="display:flex; justify-content:flex-end; margin-bottom:1rem;">
+    <FluentButton Style="width:56px;" BackgroundColor="#1976d2" OnClick="@AddItem">
+        <FluentIcon Icon="@(Icons.Regular.Size24.AddSquare)" Style="fill:white;" />
+    </FluentButton>
+</div>
+
+@if (Items.Count > 0)
+{
+    @for (int i = 0; i < Items.Count; i++)
+    {
+        var item = Items[i];
+        <DynamicComponent @key="item" Type="@GetConfigComponent(item)" Parameters="GetConfigParameters(item, i)" />
+    }
+}
+else
+{
+    <p>No items yet. Click the Add button to add one.</p>
+}
+
+<div style="display:flex; justify-content:space-between; margin-top:2rem; margin-bottom:2rem;">
+    <FluentButton Style="color:white;" BackgroundColor="#1976d2" OnClick="@Cancel">Cancel</FluentButton>
+    <FluentButton Style="color:white;" BackgroundColor="#1976d2" OnClick="@Apply">Apply</FluentButton>
+</div>
+
+@code {
+    [Parameter] public List<TItem> Items { get; set; } = new();
+    [Parameter] public Dictionary<Type, Type> ConfigMapping { get; set; } = new();
+    [Parameter] public Func<TItem>? CreateDefault { get; set; }
+    [Parameter] public EventCallback<List<TItem>> OnApply { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+
+    private bool shouldValidate = false;
+
+    protected override void OnParametersSet()
+    {
+        
+    }
+
+    private void AddItem()
+    {
+        if (CreateDefault != null)
+        {
+            var newItem = CreateDefault();
+            Items.Add(newItem);
+        }
+    }
+
+    private void Cancel()
+    {
+        OnCancel.InvokeAsync();
+    }
+
+    private async void Apply()
+    {
+        shouldValidate = true;
+        StateHasChanged();
+        await Task.Delay(10); 
+        shouldValidate = false;
+        StateHasChanged();
+        await OnApply.InvokeAsync(Items);
+    }
+
+    private Type GetConfigComponent(TItem item)
+    {
+        var itemType = item.GetType();
+        return ConfigMapping.TryGetValue(itemType, out var configType)
+            ? configType
+            : typeof(object);
+    }
+
+    private Dictionary<string, object> GetConfigParameters(TItem item, int index)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            ["Item"] = item,
+            ["Index"] = index,
+            ["OnCopy"] = EventCallback.Factory.Create<TItem>(this, () => CopyItem(item)),
+            ["OnDelete"] = EventCallback.Factory.Create(this, () => DeleteItem(index)),
+            ["ShouldValidate"] = shouldValidate
+        };
+
+        // Pass the correct callback name based on TItem
+        if (typeof(TItem) == typeof(ActionModel))
+            parameters["OnActionChanged"] = EventCallback.Factory.Create<IStepNode>(this, (IStepNode newItem) => ReplaceItem(index, newItem));
+        else if (typeof(TItem) == typeof(ExpectationModel))
+            parameters["OnExpectationChanged"] = EventCallback.Factory.Create<IStepNode>(this, (IStepNode newItem) => ReplaceItem(index, newItem));
+        else if (typeof(TItem) == typeof(EvidenceModel))
+            parameters["OnEvidenceChanged"] = EventCallback.Factory.Create<IStepNode>(this, (IStepNode newItem) => ReplaceItem(index, newItem));
+
+        return parameters;
+    }
+
+    private void ReplaceItem(int index, IStepNode newItem)
+    {
+        if (index >= 0 && index < Items.Count)
+        {
+            Items[index] = (TItem)newItem;
+        }
+    }
+    private void CopyItem(TItem item)
+    {
+        var clone = (TItem)item.Clone();
+        Items.Add(clone);
+    }
+
+    private void DeleteItem(int index)
+    {
+        if (index >= 0 && index < Items.Count)
+        {
+            Items.RemoveAt(index);
+        }
+    }
+}

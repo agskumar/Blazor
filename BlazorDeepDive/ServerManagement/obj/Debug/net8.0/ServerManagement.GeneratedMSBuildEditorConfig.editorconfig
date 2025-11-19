@@ -28,6 +28,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xBY3Rpb25Db25maWcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Controls/EntityManager.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xFbnRpdHlNYW5hZ2VyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Controls/EvidenceConfig.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xFdmlkZW5jZUNvbmZpZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Controls/ExpectationConfig.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xFeHBlY3RhdGlvbkNvbmZpZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Controls/InstrumentResult.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb250cm9sc1xJbnN0cnVtZW50UmVzdWx0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -52,8 +64,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/EvidenceManager.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFdmlkZW5jZU1hbmFnZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/Example.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFeGFtcGxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/ExpectationManager.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFeHBlY3RhdGlvbk1hbmFnZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Learnings/Blazor/BlazorDeepDive/ServerManagement/Components/Pages/Home.razor]
